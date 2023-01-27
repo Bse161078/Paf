@@ -105,5 +105,17 @@ export const contactTitle="Temas";
 export const addressTitle="Adres";
 export const emailTitle="E-posta Adresi";
 
+export const nurseQualification = "Nitelikli bir hemşire, geriatri hemşiresi, anestezi teknisyeni veya özel ihtiyaç hemşiresi misiniz? O zaman şimdi Alman sağlık sisteminde başlayın. Hastaneler, her türden bakım tesisleri ve sosyal bakım hizmetleri, yıllardır her beceri seviyesinden motive ve kendini işine adamış çalışanlar arıyor. Ve Almanya'nın nüfusu yaşlanmaya devam ettikçe ve bunu şimdi düşük doğum oranlı nesiller takip ettikçe, ihtiyaç dramatik bir şekilde artmaya devam edecek. Ne için bekliyorsun? Şimdi kaydolun, böylece eğitiminizin tanınmasını sağlayabiliriz!"
+export const nursingProfessionTitle="Hemşirelik mesleklerinin güvenli bir geleceği var";
+export const dedicatedTeam = "Hemşirelik Uzmanı pasajlarının birçok varyasyonu mevcuttur."
+export const nurseTitle1 = "Özel Ekip"
+export const nurseTitle2 = "Büyük destek"
+export const nurseTitle3 = "Devlet Sertifikalı"
+export const entryRequirement = "Uluslararası hemşirelik profesyonelleri için giriş koşulları"
+export const nursingInGermany = "Almanya'da hemşirelik mesleğinde çalışmak istiyorsanız, mesleği icra etmek için resmi bir lisansa ihtiyacınız var. Almanya'da bir hemşirelik mesleğini icra edebilmek için genellikle aşağıdaki şartların karşılanması gerekir: Yeterliliğinizin tanınması: Bir hemşirelik mesleğindeki yeterliliğinizin önce Almanya'da tanınması gerekir. Sertifikalarınızın ilgili merciler tarafından kontrol edilmesini sağlıyoruz. Yeterliliğinizin bir Alman derecesine eşdeğer olup olmadığı, yalnızca mesleğe bağlı olarak eyaletten eyalete değişen yetkili makamlar tarafından belirlenebilir. Alman mesleki tanınırlığı o zaman ülke çapında geçerlidir. Yeterliliğiniz tanınmazsa, bilgi seviyenizi ve gerekli becerileri kanıtlamak için bir değerlendirme sınavına girebilir veya bir uyum kursuna katılabilirsiniz. Yeterli Almanca bilgisi: Çalışacağınız eyalete bağlı olarak, Avrupa Ortak Dil Referans Çerçevesi'nin (CEFR) B2 veya B1 düzeyinde Almanca dil becerilerine sahip olmanız gerekir. PAF akademisi dil kurslarımızda, bu dil becerilerini edinmenize yardımcı oluyoruz. Sağlık testi: Almanya'da bir hemşirelik mesleğinde çalışabilmeniz için, bir Alman doktor tarafından verilmiş, fiziksel ve zihinsel olarak sağlıklı olduğunuzu ve bu nedenle hemşirelik mesleğinde çalışmaya uygun olduğunuzu onaylayan bir sertifikaya ihtiyacınız vardır. Biz de bununla ilgileniyoruz. Sabıka kaydı: Güvenilirliğinizi kanıtlamak için geçerli bir sabıka kaydına ihtiyacınız var. Mesleğinize, menşe ülkenize ve federal eyalete bağlı olarak, ya kendi ülkenizden bir sabıka kaydına ya da Almanya'da verilmiş bir sabıka kaydına ihtiyacınız olacaktır."
+export const nursingEmployed = "Geriatri hemşireliği de dahil olmak üzere hemşirelik sektöründe 1,7 milyon kişi istihdam edilmektedir."
+export const nurse = "Hemşire"
 
-export const nursingProfessionTitle="Nursing professions have a secure future";
+
+
+

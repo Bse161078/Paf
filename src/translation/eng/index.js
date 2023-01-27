@@ -112,5 +112,17 @@ export const addressTitle="Address";
 export const emailTitle="Email Address";
 
 
-
+export const nurseQualification = "Are you a qualified nurse, geriatric nurse, anesthesia technician or special needs nurse? Then start now in the German health care system. Hospitals, care facilities of all kinds, and social care services have been looking for motivated and dedicated employees of all skill levels for years. And as Germany’s population continues to grow older, now followed by the low-birth-rate generations, the need will continue to grow dramatically. What are you waiting for? Register now so we can take care of recognizing your education!"
 export const nursingProfessionTitle="Nursing professions have a secure future";
+export const dedicatedTeam = "There are many variations of passages of Nursing Professional available."
+export const nurseTitle1 = "Dedicated Team"
+export const nurseTitle2 = "Great Support"
+export const nurseTitle3 = "Government Certified"
+export const entryRequirement = "Entry requirements for international nursing professionals"
+export const nursingInGermany = "If you want to work in a nursing profession in Germany, you need an official license to practice the profession. Usually, the following requirements must be met in order to be able to practice a nursing profession in Germany: Recognition of your qualification: Your qualification in a nursing profession must first be recognized in Germany. We arrange for your certificates to be checked by the relevant authorities. Whether your qualification is equivalent to a German degree can only be determined by the competent authorities, which vary from state to state depending on the profession. The German professional recognition is then valid nationwide. If your qualification is not recognized, you can take an assessment test or attend an adaptation course to prove your level of knowledge and the required skills. Sufficient knowledge of German: Depending on the state in which you will be working, you must have German language skills at level B2 or B1 of the Common European Framework of Reference for Languages (CEFR). In our PAF academy language courses, we help you to acquire these language skills. Medical test: In order to work in a nursing profession in Germany, you need a certificate issued by a German doctor confirming that you are physically and mentally healthy and therefore eligible to work in a nursing profession. We also take care of this. Criminal record: To prove your trustworthiness, you need a valid criminal record. Depending on your profession, country of origin, and federal state, you will either need a criminal record from your home country or one issued in Germany."
+
+export const nursingEmployed = "1.7 million people are employed in the nursing sector, geriatric nursing included."
+export const nurse = "Nurse"
+export const jobPosition = "Job Position"
+
+
