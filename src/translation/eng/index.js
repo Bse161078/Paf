@@ -124,5 +124,7 @@ export const nursingInGermany = "If you want to work in a nursing profession in 
 export const nursingEmployed = "1.7 million people are employed in the nursing sector, geriatric nursing included."
 export const nurse = "Nurse"
 export const jobPosition = "Job Position"
+export const jobVacancy = "Over 40,000 job positions in care facilities are vacant."
+
 
 

@@ -31,6 +31,8 @@ let entryRequirement;
 let nursingInGermany;
 let nursingEmployed;
 let nurse;
+let jobPosition;
+let jobVacancy;
 const Nursing = () => {
 
     const {onClick,userId} = useOutletContext();
@@ -51,7 +53,9 @@ const Nursing = () => {
             nurseTitle3,
             nursingInGermany,
             nursingEmployed,
-            nurse
+            nurse,
+            jobPosition,
+            jobVacancy
         } =
             selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
         setLoading(false);
@@ -181,12 +185,12 @@ const Nursing = () => {
                                 </Grid>
                                 <Grid item style={{marginTop: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Job positions"}
+                                        text={jobPosition}
                                         color={"red"} fontWeight={"bold"}/>
                                 </Grid>
                                 <Grid item style={{marginTop: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Over 40,000 job positions in care facilities are vacant."}
+                                        text={jobVacancy}
                                         color={"black"} textAlign={"center"}/>
                                 </Grid>
                             </Grid>
