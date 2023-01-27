@@ -130,5 +130,52 @@ export const visaAndResidency3 = "insanlar tarafından güvenilir";
 export const visaAndResidency4 = "Göçmenlik Hizmetleri Deneyim Temsilcileri Sağlayın";
 
 export const nursingLastParagraph = "Ülkeye girdikten sonra Almanya'da çalışabilmek için AB, Lihtenştayn, İzlanda, Norveç veya İsviçre vatandaşı değilseniz oturma iznine ihtiyacınız olacak. Vize ve oturma izninizi almanız konusunda size elbette destek olacağız."
+export const nursingFullService = "Başlangıç ​​için tam hizmet"
+export const germany = "Almanya"
+export const checkDocument = "Belge kontrolü"
+export const translationDocuments = "Belgelerinizin çevirileri"
+export const applicationAuthorities = "Yetkililere başvuru"
+export const supportSearch = "İş arama ile destek"
+export const helpOpening = "Banka hesabı açma konusunda yardım"
+export const freeAssessment = "Ücretsiz Göçmenlik Değerlendirmesi"
+export const name = "isim"
+export const phone = "telefon"
+export const selectImmigration = "Göçmenlik Seçin"
+export const message = "İleti"
+export const signUp = "üye olmak"
+export const submit = "Sunmak"
+export const nursingProfessionals = "Hemşirelik Profesyonelleri"
+export const itSpecials = "BT UZMANI"
+export const engineerings = "Mühendislik"
+export const physicians = "doktorlar"
+export const scientists = "Bilim insanları"
+export const recognitionProcedure = "Tanıma Prosedürü"
+export const whyYouNeedRecognition = "Neden tanınmaya ihtiyacınız var?"
+export const academicQualifications = "Akademik nitelikler?"
+export const workContract = "İş sözleşmesi?"
+export const salaryTaxSocialCharges = "Maaş, vergi ve sosyal masraflar"
+export const languageLessons = "dil dersleri"
+export const integrationsCourses = "Entegrasyon Kursları"
+export const economy = "ekonomi"
+export const immigration = "göçmenlik"
+export const livingExpensesSalary = "Yaşam Giderleri-Maaş"
+export const costFees = "Maliyet ve Ücretler"
+export const contactUs = "Bizimle iletişime geçin"
+export const frequentlyAskedQuestions = "sıkça Sorulan Sorular"
+export const privacyPolicy = "Gizlilik Politikası"
+export const cancellationPolicy = "İptal politikası"
+export const termsAndConditions = "Şartlar ve koşullar"
+export const myAccount = "Hesabım"
+export const iFuture = "BT ve UZMANIN güvenli bir geleceği var"
+
+
+
+
+
+
+
+
+
+
 
 

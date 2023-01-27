@@ -58,6 +58,8 @@ const RegisterStep2 = (props) => {
     const [loading, setLoading] = useState(false);
     const [openCalendar, setOpenCalendar] = useState(false);
 
+    
+
     useEffect(() => {
 
         const countryCodes = (Country.getAllCountries()).map((country) => (country.phonecode + " " + country.name));

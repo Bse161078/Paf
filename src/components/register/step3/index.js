@@ -63,6 +63,8 @@ const RegisterStep3 = (props) => {
     const {userId} = useOutletContext();
     const [loading, setLoading] = useState(false);
 
+
+    
     useEffect(() => {
 
         const countries = (Country.getAllCountries()).map((country) => country.name);

@@ -80,7 +80,7 @@ const CustomLabelHeaderLarge = (props) => {
     return (
         <Typography
             sx={{
-                fontSize: {xs:"14px",md:"15px",lg:"24px"},
+                fontSize: {xs:"10px",md:"15px",lg:"24px"},
                 color: props.color || "#FFFFFF",
                 fontFamily: 'Poppins',
                 textAlign:props.textAlign,
