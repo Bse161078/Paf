@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium, CustomLabelLabelSmallMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -22,9 +22,59 @@ import ManyYearsExpIcon from "src/assets/images/many-years-exp.svg";
 import CompleteAccurateIcon from "src/assets/images/complete-accurate.svg";
 import ImmigrantSpecialistIcon from "src/assets/images/immigrant-specialist.svg";
 import VisaPerson from "src/assets/images/visa-persone.webp";
+import { useSelector } from "react-redux";
+
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,integrationCourses,integrationCoursesDetails,registerNow
 
 
 const IntegrationCourses = () => {
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,integrationCourses,integrationCoursesDetails,registerNow
+    
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
+
     return (
         <Grid container justifyContent={"center"}
               sx={{marginTop: {xs: "calc(50vh - 250px)", sm: "calc(50vh - 250px)", lg: "calc(50vh - 300px)"}}}>
@@ -37,12 +87,12 @@ const IntegrationCourses = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"INTEGRATION COURSES"}
+                                text={integrationCourses}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"In addition to the classic language courses, there are also so-called integration courses in Germany. In these courses, you learn not only the language, but also useful things for everyday life in Germany and about German culture. In the average of 100 teaching units, topics such as childcare, the school system, dealing with authorities or general social values are taught. There are special courses for young people, women or parents, among others. In some cases, attendance of an integration course is mandatory.\n" +
+                                text={integrationCoursesDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -52,7 +102,7 @@ const IntegrationCourses = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Register now! We will assist you in finding a suitable and reputable course provider."}
+                                text={registerNow}
                                 color={"black"} fontWeight={"bold"}/>
                         </Grid>
                     </Grid>
@@ -73,14 +123,14 @@ const IntegrationCourses = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -93,7 +143,7 @@ const IntegrationCourses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -107,7 +157,7 @@ const IntegrationCourses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -121,7 +171,7 @@ const IntegrationCourses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -135,7 +185,7 @@ const IntegrationCourses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -148,7 +198,7 @@ const IntegrationCourses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -156,7 +206,7 @@ const IntegrationCourses = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"}
+                                            <CustomButtonLarge text={signUp} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
@@ -174,7 +224,7 @@ const IntegrationCourses = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -186,7 +236,7 @@ const IntegrationCourses = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -199,7 +249,7 @@ const IntegrationCourses = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -212,7 +262,7 @@ const IntegrationCourses = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -225,7 +275,7 @@ const IntegrationCourses = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -236,7 +286,7 @@ const IntegrationCourses = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"}
+                                            <CustomButtonLarge text={submit} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>

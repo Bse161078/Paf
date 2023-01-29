@@ -37,7 +37,7 @@ import {doc, getDoc, setDoc} from "firebase/firestore";
 import Loader from "../../common/Loader";
 import axios from "axios";
 import {BASE_URL} from "../../../constants";
-
+import { useSelector } from "react-redux";
 
 export const initialRegister = {
     workExperience: {value: null, error: "Years of work Experience cant be empty", showError: false},
@@ -47,6 +47,9 @@ export const initialRegister = {
     graduationStatus: {value: '', error: "Graduation Status cant be empty", showError: false},
     germanLanguageStatus: {value: '', error: "German Language Level Status cant be empty", showError: false},
 };
+
+let personalData,checkEligibility,workExperience,skilledProfession,residenceCountry,speakOtherLanguage,graduationStatus,germanLanguageStatus,validUsername,validPassword,typeUsername
+
 
 
 const RegisterStep3 = (props) => {
@@ -63,6 +66,24 @@ const RegisterStep3 = (props) => {
     const {userId} = useOutletContext();
     const [loading, setLoading] = useState(false);
 
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+
+
+    const loadConstant = async () => {
+        setLoading(true);
+        ({
+            personalData,checkEligibility,workExperience,skilledProfession,residenceCountry,speakOtherLanguage,graduationStatus,germanLanguageStatus,validUsername,validPassword,typeUsername
+        } =
+            selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+        setLoading(false);
+        setCount(count + 1)
+    }
+
+    useEffect(() => {
+        loadConstant();
+    }, [selectedLanguage])
+
+    
     useEffect(() => {
 
         const countries = (Country.getAllCountries()).map((country) => country.name);
@@ -106,7 +127,7 @@ const RegisterStep3 = (props) => {
             } else {
                 data = {
                     ...data,
-                    username: {...data.username, showError: true, error: "Username must have at least 5 characters"}
+                    username: {...data.username, showError: true, error: validUsername}
                 }
             }
         }
@@ -143,7 +164,7 @@ const RegisterStep3 = (props) => {
     }
 
     const onRegisterUser = () => {
-        const validate = validateUserInput({...user}, "", "Password must have at least 8 characters");
+        const validate = validateUserInput({...user}, "", validPassword);
         if (validate.isValid) {
                 registerUser();
         } else {
@@ -173,7 +194,7 @@ const RegisterStep3 = (props) => {
             <Grid item xs={11} md={8} container direction={"column"} justifyContent={"center"} alignItems={"center"}>
                 <Grid item>
                     <CustomLabelHeaderExtraLarge
-                        text={"Check for eligibility"}
+                        text={checkEligibility}
                         color={"black"} fontWeight={"bold"} textAlign={"center"}/>
                 </Grid>
                 <Grid item style={{marginTop: "5px"}}>
@@ -221,7 +242,7 @@ const RegisterStep3 = (props) => {
                         <Grid container direction={"column"} alignItems={"center"}>
                             <Grid item>
                                 <CustomLabelHeaderLarge
-                                    text={"Personal Data"}
+                                    text={personalData}
                                     color={"black"} fontWeight={"bold"}/>
                             </Grid>
                             <Grid item style={{marginTop: "5px"}}>
@@ -236,12 +257,12 @@ const RegisterStep3 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Years of work Experience?"}
+                                text={workExperience}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
                         <Grid item container>
-                            <CustomAuthTextField placeholder={"type username here"}
+                            <CustomAuthTextField placeholder={typeUsername}
                                                  value={user.workExperience.value}
                                                  onChange={(e) => onChange(e, "workExperience")}
                                                  showError={user.workExperience.showError}
@@ -252,7 +273,7 @@ const RegisterStep3 = (props) => {
                     <Grid item xs={12} md={5.5} container sx={{marginTop: {xs: "30px", md: "0px"}}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Skilled Profession"}
+                                text={skilledProfession}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -271,7 +292,7 @@ const RegisterStep3 = (props) => {
                     <Grid item xs={12} md={12} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Your Residence Country?"}
+                                text={residenceCountry}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -291,7 +312,7 @@ const RegisterStep3 = (props) => {
                     <Grid item xs={12} md={12} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Do you speak any other languages?"}
+                                text={speakOtherLanguage}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -320,7 +341,7 @@ const RegisterStep3 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Graduation Status"}
+                                text={graduationStatus}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -335,7 +356,7 @@ const RegisterStep3 = (props) => {
                     <Grid item xs={12} md={5.5} container sx={{marginTop: {xs: "30px", md: "0px"}}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"German Language Level Status"}
+                                text={germanLanguageStatus}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>

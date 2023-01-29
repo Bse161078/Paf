@@ -34,7 +34,7 @@ import Loader from "../../common/Loader";
 import ResponsiveConfirmationDialog from "../../common/ResponsiveConfirmation";
 import uuid from 'react-uuid';
 import {BASE_URL} from "../../../constants";
-
+import { useSelector } from "react-redux";
 
 
 export const initialRegister = {
@@ -53,6 +53,8 @@ const initialConfirmation = {
     buttonNo: null
 }
 
+let documentForTranslation,fillOutDetails,documentTitle,instruction,uploadDocument,price,pricePerPage,maximumFileSize,chooseFile,replaceFile,readTerms,termsAndConditionsLink,privacyPolicyLink,and,cancellationPolicyLink,withdrawCancellation,submit;
+
 const Translation = () => {
     const [user, setUser] = useState(initialRegister);
     const [count, setCount] = useState(0);
@@ -63,6 +65,24 @@ const Translation = () => {
     const [confirmation, setConfirmation] = useState(initialConfirmation);
     const {userId} = useOutletContext();
     const [loading, setLoading] = useState(false);
+
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+       
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                documentForTranslation,fillOutDetails,documentTitle,instruction,uploadDocument,price,pricePerPage,maximumFileSize,chooseFile,replaceFile,readTerms,termsAndConditionsLink,privacyPolicyLink,and,cancellationPolicyLink,withdrawCancellation,submit
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
 
 
     let navigate = useNavigate();
@@ -214,10 +234,10 @@ const Translation = () => {
                   justifyContent={"space-between"}>
                 <Grid item xs={12} container direction={"column"} justifyContent={"space-between"}>
                     <Grid item>
-                        <CustomLabelHeaderLarge text={"Document for translation"} color={"red"} fontWeight={"bold"}/>
+                        <CustomLabelHeaderLarge text={documentForTranslation} color={"red"} fontWeight={"bold"}/>
                     </Grid>
                     <Grid item style={{marginTop: "20px"}}>
-                        <CustomLabelHeader text={"fill out a few details to start Submit Document for translation"}
+                        <CustomLabelHeader text={fillOutDetails}
                                            color={"black"} opacity={"0.5"} fontWeight={"bold"}/>
                     </Grid>
                     <Grid item style={{marginTop: "20px"}}>
@@ -229,7 +249,7 @@ const Translation = () => {
                             <Grid item xs={12} container>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Document Title"}
+                                        text={documentTitle}
                                         color={"black"} fontWeight={"bold"} textAlign={"center"}
                                         lineHeight={1.7}/>
                                 </Grid>
@@ -249,7 +269,7 @@ const Translation = () => {
                                     <Grid container justifyContent={"flex-start"}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Instructions"}
+                                            text={instruction}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
                                     </Grid>
@@ -267,7 +287,7 @@ const Translation = () => {
                             <Grid item xs={12} container xs={12} sm={5.5} sx={{marginTop: {xs: "20px", sm: "0px"}}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Upload Document"}
+                                        text={uploadDocument}
                                         color={"black"} fontWeight={"bold"} textAlign={"center"}
                                         lineHeight={1.7}/>
                                 </Grid>
@@ -288,7 +308,7 @@ const Translation = () => {
                                                     component="label"
                                                     style={{border: "2px solid red", padding: "10px 30px 10px 30px"}}>
                                                     <CustomLabelLabelLarge
-                                                        text={fileName ? "Replace File" : "Choose File"}
+                                                        text={fileName ? replaceFile : chooseFile}
                                                         color={"black"}/>
                                                     <input accept=".pdf" type="file" onChange={onChangeFile} hidden/>
                                                 </Button>
@@ -302,7 +322,7 @@ const Translation = () => {
                                             }
 
                                             <Grid item style={{marginTop: "20px"}}>
-                                                <CustomLabelLabelMedium text={"Maximum file size: 256 MB"}
+                                                <CustomLabelLabelMedium text={maximumFileSize}
                                                                         color={"black"}
                                                                         fontWeight={"bold"} opacity={"0.5"}/>
                                             </Grid>
@@ -325,13 +345,13 @@ const Translation = () => {
 
                         <Grid contaienr direction={"column"} style={{marginTop: "40px"}}>
                             <Grid item>
-                                <CustomLabelLabelMedium text={"Price:"}
+                                <CustomLabelLabelMedium text={price}
                                                         color={"black"}
                                                         fontWeight={"bold"} opacity={"1"}/>
 
                             </Grid>
                             <Grid item>
-                                <CustomLabelHeaderLarge1 text={"€ 35.00 Euro Per Page"}
+                                <CustomLabelHeaderLarge1 text={pricePerPage}
                                                         color={"black"}
                                                         fontWeight={"bold"}/>
                             </Grid>
@@ -343,27 +363,27 @@ const Translation = () => {
                             </Grid>
                             <Grid item xs style={{marginLeft: "5px"}}>
                                 <CustomLabelLabelSmallHeader
-                                    text={"I have read "}
+                                    text={readTerms}
                                     color={"black"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}>
                             <span style={{cursor:"pointer"}} onClick={(e)=>onChangeLink('/terms-condition')}>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={"the terms and condition "}
+                                    text={termsAndConditionsLink}
                                     color={"red"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
                                     <span>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={"and "}
+                                    text={and}
                                     color={"black"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
                                     <span style={{cursor:"pointer"}} onClick={(e)=>onChangeLink('/privacy-policy')}>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={" the privacy policy"}
+                                    text={privacyPolicyLink}
                                     color={"red"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
@@ -377,13 +397,13 @@ const Translation = () => {
                             </Grid>
                             <Grid item xs style={{marginLeft: "5px"}}>
                                 <CustomLabelLabelSmallHeader
-                                    text={"I have read"}
+                                    text={readTerms}
                                     color={"black"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}>
                             <span style={{cursor:"pointer"}} onClick={(e)=>onChangeLink('/cancellation-policy')}>
                                <CustomLabelLabelSmallHeader
                                    inline={"inline"}
-                                   text={" the cancellation policy"}
+                                   text={cancellationPolicyLink}
                                    color={"red"} fontWeight={"bold"} textAlign={"left"}
                                    opacity={1} lineHeight={1.7}/>
 
@@ -391,7 +411,7 @@ const Translation = () => {
                                     <span>
                                <CustomLabelLabelSmallHeader
                                    inline={"inline"}
-                                   text={" here by widthdraw from my right of cancellation"}
+                                   text={withdrawCancellation}
                                    color={"black"} fontWeight={"bold"} textAlign={"left"}
                                    opacity={1} lineHeight={1.7}/>
 
@@ -405,7 +425,7 @@ const Translation = () => {
                         <Grid container style={{marginTop: "20px"}}>
                             <Grid item onClick={(e)=>( terms.privacyPolicy && terms.cancellationPolicy) && onRegisterUser()}>
                                 <CustomButtonLarge disabled={!terms.privacyPolicy || !terms.cancellationPolicy}
-                                                   text={"Submit"} background={"red"} border={"2px solid red"}/>
+                                                   text={submit} background={"red"} border={"2px solid red"}/>
                             </Grid>
                         </Grid>
 

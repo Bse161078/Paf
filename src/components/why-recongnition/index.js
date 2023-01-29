@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -17,21 +17,71 @@ import NursingDetail4Image4 from "src/assets/images/nursing-des4-img4.svg";
 import NursingDetail4Image5 from "src/assets/images/nursing-des4-img5.svg";
 import {CustomButtonLarge} from "../common/button";
 import {CustomTextField} from "../common/text";
+import { useSelector } from "react-redux";
+
+
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,workInGermanyAsNonEUCitizens,workInGermanyAsNonEUCitizensDetails,resultsOfRecognition,resultsOfRecognitionDetails,nonEUCitizens,nonEUCitizensDetails,costOfRecognition,costOfRecognitionDetails,timlineOfRecognition,timlineOfRecognitionDetails;
 
 
 const WhyRecognition = () => {
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,workInGermanyAsNonEUCitizens,workInGermanyAsNonEUCitizensDetails,resultsOfRecognition,resultsOfRecognitionDetails,nonEUCitizens,nonEUCitizensDetails,costOfRecognition,costOfRecognitionDetails,timlineOfRecognition,timlineOfRecognitionDetails
+                
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
     return (
         <Grid container justifyContent={"center"} sx={{marginTop: {xs:"calc(50vh - 250px)",sm:"calc(50vh - 250px)",lg:"calc(50vh - 300px)"}}}>
             <Grid item xs={9} container sx={{marginTop: {xs:"5px",md:"20px"}}} justifyContent={"space-between"}>
                 <Grid item container xs={12} md={7} direction={"column"}>
                     <Grid item>
                         <CustomLabelHeaderLarge
-                            text={"You would like to work in Germany? And you come from a non-EU country?"}
+                            text={workInGermanyAsNonEUCitizens}
                             color={"red"} fontWeight={"bold"}/>
                     </Grid>
                     <Grid item style={{marginTop: "20px"}}>
                         <CustomLabelLabelMedium
-                            text={"Then the recognition of your professional qualification is essential. Depending on your profession and your desired new place of residence and work, the requirements for the recognition process vary. And since there are 16 states in Germany that have established different requirements and approaches, we will navigate you through the German official jungle. There are regulated and unregulated professions in Germany. Depending on your citizenship, you do not need recognition of your qualification for unregulated professions. However, this only applies to people from EU countries. Please note the different requirements for academics, which you can find here (link to the internal page Academic Qualification). If you are a non-EU citizen, you will definitely need professional recognition of your education. The federal government recommends that applicants consult a counseling service. Precisely because there are a lot of things to consider. And you need the certificate of recognition to be able to enter Germany from a third country if you want to work here.\n" +
+                            text={workInGermanyAsNonEUCitizensDetails+"\n" +
                             ""}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -41,12 +91,12 @@ const WhyRecognition = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Possible results of the recognition procedure"}
+                                text={resultsOfRecognition}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"If the contents of your vocational qualification or your university degree correspond to the German qualification, you will receive an official document written in German, your certificate of recognition. However, if significant differences are found, your profession still plays a decisive role: In non-regulated professions, your professional qualification is often partially recognized if certain contents of your training process are equivalent and others are not. The most important differences to the German reference occupation are listed in the assessment notice. In refresher courses you can acquire the missing qualifications and submit a so-called follow-up application to obtain full recognition. The situation is different for the so-called regulated professions. Here, the competent authority decides which adaptation programs you have to complete in order to obtain recognition. If you have successfully completed the adaptation program, further criteria for admission to the profession will be examined.\n" +
+                                text={resultsOfRecognitionDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -56,28 +106,12 @@ const WhyRecognition = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Important note for non-EU citizens"}
+                                text={nonEUCitizens}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"If you come from a non-EU country, you need a full recognition certificate in any case, even for unregulated professions, in order to obtain a work permit. In order to obtain full recognition, you can be allowed to enter Germany to participate in measures and training to obtain equivalence. For this purpose you will receive a visa for the recognition of professional qualifications.\n" +
-                                ""}
-                                color={"black"} fontWeight={"bold"} fontWeight={"bold"}
-                                opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
-                        </Grid>
-                    </Grid>
-
-
-                    <Grid container style={{marginTop: "20px"}}>
-                        <Grid item>
-                            <CustomLabelHeaderLarge
-                                text={"Costs of the recognition procedure"}
-                                color={"red"} fontWeight={"bold"}/>
-                        </Grid>
-                        <Grid item style={{marginTop: "10px"}}>
-                            <CustomLabelLabelMedium
-                                text={"The costs of the recognition vary according to the country of origin, the occupational profile, the federal state of the recognition and the completeness of the documents. Thus, a recognition procedure can cost up to 600 €, in some cases even more. In addition, there are costs for translations, certifications, examinations and training. The federal government offers financial support in some cases. Contact us, if you wish we can check if you are eligible for a support measure.\n" +
+                                text={nonEUCitizensDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -88,12 +122,28 @@ const WhyRecognition = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Timeline of the recognition process"}
+                                text={costOfRecognition}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"As soon as you have uploaded your documents to us, we will immediately check your documents for completeness and submit them to the relevant authorities. In our experience, the authorities usually take three to four months to review the documents. We have no influence on this time. However, with us you ensure that your applications are complete and plausible, which eliminates the need for queries and thus shortens the processing time.\n" +
+                                text={costOfRecognitionDetails+"\n" +
+                                ""}
+                                color={"black"} fontWeight={"bold"} fontWeight={"bold"}
+                                opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
+                        </Grid>
+                    </Grid>
+
+
+                    <Grid container style={{marginTop: "20px"}}>
+                        <Grid item>
+                            <CustomLabelHeaderLarge
+                                text={timlineOfRecognition}
+                                color={"red"} fontWeight={"bold"}/>
+                        </Grid>
+                        <Grid item style={{marginTop: "10px"}}>
+                            <CustomLabelLabelMedium
+                                text={timlineOfRecognitionDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -111,14 +161,14 @@ const WhyRecognition = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -130,7 +180,7 @@ const WhyRecognition = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -143,7 +193,7 @@ const WhyRecognition = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -156,7 +206,7 @@ const WhyRecognition = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -169,7 +219,7 @@ const WhyRecognition = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -181,7 +231,7 @@ const WhyRecognition = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -189,7 +239,7 @@ const WhyRecognition = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={signUp} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -201,7 +251,7 @@ const WhyRecognition = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -212,7 +262,7 @@ const WhyRecognition = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -224,7 +274,7 @@ const WhyRecognition = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -236,7 +286,7 @@ const WhyRecognition = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -248,7 +298,7 @@ const WhyRecognition = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -262,7 +312,7 @@ const WhyRecognition = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={submit} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium, CustomLabelLabelSmallMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -22,9 +22,62 @@ import ManyYearsExpIcon from "src/assets/images/many-years-exp.svg";
 import CompleteAccurateIcon from "src/assets/images/complete-accurate.svg";
 import ImmigrantSpecialistIcon from "src/assets/images/immigrant-specialist.svg";
 import VisaPerson from "src/assets/images/visa-persone.webp";
+import { useSelector } from "react-redux";
+import { Message } from "@mui/icons-material";
+
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,immigrationToGermany,immigrationToGermanyDetails,recognitionOfEducation,recognitionOfEducationDetails,germanLanguageSkills,germanLanguageSkillsDetails,familyImmigration,familyImmigrationDetails
 
 
 const Immigration = () => {
+    
+        const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,immigrationToGermany,immigrationToGermanyDetails,recognitionOfEducation,recognitionOfEducationDetails,germanLanguageSkills,germanLanguageSkillsDetails,familyImmigration,familyImmigrationDetails
+    
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
+    
+    
     return (
         <Grid container justifyContent={"center"}
               sx={{marginTop: {xs: "calc(50vh - 250px)", sm: "calc(50vh - 250px)", lg: "calc(50vh - 300px)"}}}>
@@ -34,12 +87,12 @@ const Immigration = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Immigration To Germany"}
+                                text={immigrationToGermany}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"You apply for your visa at the German consulate or embassy in your home country. The necessary forms are usually available in your national language. You can apply for a job search visa and use it to search for a suitable job in Germany. Before you can start working here, you apply for a temporary residence permit, which you can later change to a permanent residence permit under certain circumstances. The EU Blue Card also entitles you to reside in Germany and the EU, but it is aimed exclusively at academics. The issuance of the residence permit is individual. You should normally meet the following requirements.\n" +
+                                text={immigrationToGermanyDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -50,12 +103,12 @@ const Immigration = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"The recognition of your education"}
+                                text={recognitionOfEducation}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"In order to obtain a residence permit, you need a recognition of your education. Our experienced team takes care of this recognition professionally. Our experts know from the countless applications they have already successfully submitted what to look out for and know the authorities and responsibilities very well. Therefore, register now. The recognition process can take up to 1.5 years in some cases.\n" +
+                                text={recognitionOfEducationDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -66,12 +119,12 @@ const Immigration = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"German language skills"}
+                                text={germanLanguageSkills}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"Without any knowledge of German, you can communicate well in everyday life in the big cities, but you should be able to speak German better on the job, in official matters, and outside of metropolitan areas in order to be able to handle your affairs independently. In the first phase, the PAF team will be happy to assist you in all of these areas upon request. And we can also help you find the right German course. You can find out more about this on our “Language courses” page.\n" +
+                                text={germanLanguageSkillsDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -81,12 +134,12 @@ const Immigration = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Family immigration"}
+                                text={familyImmigration}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"If you initially enter Germany alone in order to join your family later, your family will also apply for a residence permit. In order to do so, you must prove that you have sufficient knowledge of German. We will arrange a suitable language course for you upon request.\n" +
+                                text={familyImmigrationDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -108,14 +161,14 @@ const Immigration = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -128,7 +181,7 @@ const Immigration = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -142,7 +195,7 @@ const Immigration = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -156,7 +209,7 @@ const Immigration = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -170,7 +223,7 @@ const Immigration = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -183,7 +236,7 @@ const Immigration = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -191,7 +244,7 @@ const Immigration = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"}
+                                            <CustomButtonLarge text={signUp} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
@@ -209,7 +262,7 @@ const Immigration = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -221,7 +274,7 @@ const Immigration = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -234,7 +287,7 @@ const Immigration = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -247,7 +300,7 @@ const Immigration = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -260,7 +313,7 @@ const Immigration = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -271,7 +324,7 @@ const Immigration = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"}
+                                            <CustomButtonLarge text={submit} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>

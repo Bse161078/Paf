@@ -41,7 +41,7 @@ import TranslationIcon from 'src/assets/images/translation.svg';
 import RecognitionIcon from 'src/assets/images/recognition.svg';
 import AcademicIcon from 'src/assets/images/academic.svg';
 import {BASE_URL} from "../../../constants";
-
+import { useSelector } from "react-redux";
 
 export const initialRegister = {
     title: {value: null, error: "Document Title cant be empty", showError: false},
@@ -59,6 +59,8 @@ const initialConfirmation = {
     buttonNo: null
 }
 
+let certificate,documentForRecognition,signedPOA,downlaodPOA,download,proofOFID,priceOfRecognition,chargedAfterRecgnition,fillOutDetails,chooseFile,replaceFile,maximumFileSize,progress,readTerms,termsAndConditionsLink,privacyPolicyLink,and,cancellationPolicyLink,withdrawCancellation,submit,price;
+
 const RecognitionDashboard = () => {
     const [showCompletionCertError, setShowCompletionCertError] = useState(null);
     const [showAttorneyError, setShowAttorneyError] = useState(null);
@@ -72,8 +74,25 @@ const RecognitionDashboard = () => {
     const {userData, userId} = useOutletContext();
     const [storedRecognition, setStoredRecognition] = useState(null);
     const [count, setCount] = useState(0);
-
     const [terms, setTerms] = useState({privacyPolicy: false, cancellationPolicy: false, validInfo: false});
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+
+    const loadConstant = async () => {
+        setLoading(true);
+        ({
+            
+            certificate,documentForRecognition,signedPOA,downlaodPOA,download,proofOFID,priceOfRecognition,chargedAfterRecgnition,fillOutDetails,chooseFile,replaceFile,maximumFileSize,progress,readTerms,termsAndConditionsLink,privacyPolicyLink,and,cancellationPolicyLink,withdrawCancellation,submit,price
+        } =
+            selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+        setLoading(false);
+        setCount(count + 1)
+    }
+
+    useEffect(() => {
+        loadConstant();
+    }, [selectedLanguage])
+
 
     let navigate = useNavigate();
 
@@ -266,11 +285,11 @@ const RecognitionDashboard = () => {
                 <Grid item xs={12} container direction={"column"} justifyContent={"space-between"}>
                     <Grid container direction={"column"}>
                         <Grid item>
-                            <CustomLabelHeaderLarge text={"Documents for recognition"} color={"red"}
+                            <CustomLabelHeaderLarge text={documentForRecognition} color={"red"}
                                                     fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
-                            <CustomLabelHeader text={"fill out a few details to start Submit Document for recognition"}
+                            <CustomLabelHeader text={fillOutDetails}
                                                color={"black"} opacity={"0.5"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
@@ -281,7 +300,7 @@ const RecognitionDashboard = () => {
                     <Grid container style={{marginTop: "40px"}} direction={"column"}>
                         <Grid item>
                             <CustomLabelHeader
-                                text={"Certificate of completion, diploma or Professional license in native language or in German translation"}
+                                text={certificate}
                                 color={"black"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item container style={{marginTop: "10px"}}>
@@ -302,7 +321,7 @@ const RecognitionDashboard = () => {
                                                 component="label"
                                                 style={{border: "2px solid red", padding: "10px 30px 10px 30px"}}>
                                                 <CustomLabelLabelLarge
-                                                    text={certFileName ? storedRecognition?"In Progress":"Replace File" : "Choose File"}
+                                                    text={certFileName ? storedRecognition? progress: replaceFile : chooseFile}
                                                     color={"black"}/>
                                                 {!storedRecognition &&
                                                     <input accept=".pdf" type="file"
@@ -319,7 +338,7 @@ const RecognitionDashboard = () => {
                                         }
 
                                         <Grid item style={{marginTop: "20px"}}>
-                                            <CustomLabelLabelMedium text={"Maximum file size: 256 MB"}
+                                            <CustomLabelLabelMedium text={maximumFileSize}
                                                                     color={"black"}
                                                                     fontWeight={"bold"} opacity={"0.5"}/>
                                         </Grid>
@@ -343,16 +362,16 @@ const RecognitionDashboard = () => {
                     <Grid container style={{marginTop: "40px"}} direction={"column"}>
                         <Grid item>
                             <CustomLabelHeader
-                                text={"Signed power of attorney for the PAF to authorize your representation towards German authorities"}
+                                text={signedPOA}
                                 color={"black"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
                             <CustomLabelHeader
-                                text={"Download The Power Of Attorney File Fill It Then Upload It In The Next Input"}
+                                text={downlaodPOA}
                                 color={"#FFD11B"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
-                            <CustomLabelHeader text={"Download"}
+                            <CustomLabelHeader text={download}
                                                textDecoration={"underline"}
                                                color={"red"}/>
                         </Grid>
@@ -374,7 +393,7 @@ const RecognitionDashboard = () => {
                                                 component="label"
                                                 style={{border: "2px solid red", padding: "10px 30px 10px 30px"}}>
                                                 <CustomLabelLabelLarge
-                                                    text={attorneyFileName ? storedRecognition?"In Progress":"Replace File" : "Choose File"}
+                                                    text={attorneyFileName ? storedRecognition?progress:replaceFile : chooseFile}
                                                     color={"black"}/>
                                                 {!storedRecognition &&
                                                     <input accept=".pdf" type="file" onChange={onChangeFileAttorney}
@@ -391,7 +410,7 @@ const RecognitionDashboard = () => {
                                         }
 
                                         <Grid item style={{marginTop: "20px"}}>
-                                            <CustomLabelLabelMedium text={"Maximum file size: 256 MB"}
+                                            <CustomLabelLabelMedium text={maximumFileSize}
                                                                     color={"black"}
                                                                     fontWeight={"bold"} opacity={"0.5"}/>
                                         </Grid>
@@ -413,7 +432,7 @@ const RecognitionDashboard = () => {
 
                     <Grid container style={{marginTop: "40px"}} direction={"column"}>
                         <Grid item>
-                            <CustomLabelHeader text={"Proof of identity (ID card or Passport Copy)"}
+                            <CustomLabelHeader text={proofOFID}
                                                color={"black"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item container style={{marginTop: "10px"}}>
@@ -434,7 +453,7 @@ const RecognitionDashboard = () => {
                                                 component="label"
                                                 style={{border: "2px solid red", padding: "10px 30px 10px 30px"}}>
                                                 <CustomLabelLabelLarge
-                                                    text={identityFileName ? storedRecognition?"In Progress":"Replace File" : "Choose File"}
+                                                    text={identityFileName ? storedRecognition?progress:replaceFile : chooseFile}
                                                     color={"black"}/>
                                                 {!storedRecognition &&
                                                     <input accept=".pdf" type="file" onChange={onChangeFileIdentity}
@@ -451,7 +470,7 @@ const RecognitionDashboard = () => {
                                         }
 
                                         <Grid item style={{marginTop: "20px"}}>
-                                            <CustomLabelLabelMedium text={"Maximum file size: 256 MB"}
+                                            <CustomLabelLabelMedium text={maximumFileSize}
                                                                     color={"black"}
                                                                     fontWeight={"bold"} opacity={"0.5"}/>
                                         </Grid>
@@ -477,20 +496,20 @@ const RecognitionDashboard = () => {
                     <>
                         <Grid container direction={"row"} alignItems={"center"} style={{marginTop: "40px"}}>
                             <Grid item>
-                                <CustomLabelLabelMedium text={"Price :"}
+                                <CustomLabelLabelMedium text={price}
                                                         color={"black"}
                                                         fontWeight={"bold"} opacity={"1"}/>
 
                             </Grid>
                             <Grid item style={{marginLeft: "20px"}}>
-                                <CustomLabelHeaderLarge1 text={"€ 300 Euro"}
+                                <CustomLabelHeaderLarge1 text={priceOfRecognition}
                                                          color={"black"}
                                                          fontWeight={"bold"}/>
                             </Grid>
                         </Grid>
                         <Grid item container style={{marginTop: "20px"}}>
                             <CustomLabelLabelMedium
-                                text={"You will be charged 300 euro after uploading all the required documents"}
+                                text={chargedAfterRecgnition}
                                 color={"black"}
                                 fontWeight={"bold"} opacity={"0.5"}/>
                         </Grid>
@@ -501,27 +520,27 @@ const RecognitionDashboard = () => {
                             </Grid>
                             <Grid item xs style={{marginLeft: "5px"}}>
                                 <CustomLabelLabelSmallHeader
-                                    text={"I have read "}
+                                    text={readTerms}
                                     color={"black"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}>
                             <span style={{cursor: "pointer"}} onClick={(e) => onChangeLink('/terms-condition')}>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={"the terms and condition "}
+                                    text={termsAndConditionsLink}
                                     color={"red"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
                                     <span>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={"and "}
+                                    text={ and}
                                     color={"black"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
                                     <span style={{cursor: "pointer"}} onClick={(e) => onChangeLink('/privacy-policy')}>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={" the privacy policy"}
+                                    text={privacyPolicyLink}
                                     color={"red"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
@@ -535,13 +554,13 @@ const RecognitionDashboard = () => {
                             </Grid>
                             <Grid item xs style={{marginLeft: "5px"}}>
                                 <CustomLabelLabelSmallHeader
-                                    text={"I have read"}
+                                    text={readTerms}
                                     color={"black"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}>
                             <span style={{cursor: "pointer"}} onClick={(e) => onChangeLink('/cancellation-policy')}>
                                <CustomLabelLabelSmallHeader
                                    inline={"inline"}
-                                   text={" the cancellation policy"}
+                                   text={cancellationPolicyLink}
                                    color={"red"} fontWeight={"bold"} textAlign={"left"}
                                    opacity={1} lineHeight={1.7}/>
 
@@ -549,7 +568,7 @@ const RecognitionDashboard = () => {
                                     <span>
                                <CustomLabelLabelSmallHeader
                                    inline={"inline"}
-                                   text={" here by widthdraw from my right of cancellation"}
+                                   text={withdrawCancellation}
                                    color={"black"} fontWeight={"bold"} textAlign={"left"}
                                    opacity={1} lineHeight={1.7}/>
 
@@ -561,7 +580,7 @@ const RecognitionDashboard = () => {
                             <Grid item
                                   onClick={(e) => (terms.privacyPolicy && terms.cancellationPolicy) && onRegisterUser()}>
                                 <CustomButtonLarge disabled={!terms.privacyPolicy || !terms.cancellationPolicy}
-                                                   text={"Submit"} background={"red"} border={"2px solid red"}/>
+                                                   text={submit} background={"red"} border={"2px solid red"}/>
                             </Grid>
                         </Grid>
                     </>

@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium, CustomLabelLabelSmallMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -23,9 +23,31 @@ import CompleteAccurateIcon from "src/assets/images/complete-accurate.svg";
 import ImmigrantSpecialistIcon from "src/assets/images/immigrant-specialist.svg";
 import VisaPerson from "src/assets/images/visa-persone.webp";
 import CostIcon from "src/assets/images/cost-icon.svg";
+import {useSelector} from "react-redux";
 
 
+let documentRecognition,documentRecognitionDetails,documentRecognitionPrice,jobRecruitment,jobRecruitmentDetails,jobRecruitmentPrice,documentTranslation,documentTranslationDetails,documentTranslationPrice,visaCost,visaCostDetails,visaCostPrice,governmantFee,governmantFeeDetails,governmantFeePrice,flightTicket,flightTicketDetails,flightTicketPrice,accommodation,accommodationDetails,accommodationPrice,visaSupport,visaSupportDetails,visaSupportPrice
 const CostFees = () => {
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+    const [loading, setLoading] = useState(false);
+    const [count, setCount] = useState(0);
+
+    const loadConstant = async () => {
+        setLoading(true);
+        ({  
+            documentRecognition,documentRecognitionDetails,documentRecognitionPrice,jobRecruitment,jobRecruitmentDetails,jobRecruitmentPrice,documentTranslation,documentTranslationDetails,documentTranslationPrice,visaCost,visaCostDetails,visaCostPrice,governmantFee,governmantFeeDetails,governmantFeePrice,flightTicket,flightTicketDetails,flightTicketPrice,accommodation,accommodationDetails,accommodationPrice,visaSupport,visaSupportDetails,visaSupportPrice
+        } =
+            selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+        setLoading(false);
+        setCount(count + 1)
+    }
+
+    useEffect(() => {
+        loadConstant();
+    }, [selectedLanguage])
+
+
     return (
         <Grid container justifyContent={"center"}
               sx={{marginTop: {xs: "calc(50vh - 250px)", sm: "calc(50vh - 250px)", lg: "calc(50vh - 300px)"},paddingBottom:"30px"}}>
@@ -56,19 +78,19 @@ const CostFees = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Document Recognition"}
+                                            text={documentRecognition}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "10px",paddingBottom:"50px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"Document preparation, processing, and submission to the authorities, as well as the follow-up and monitoring.\n" +
+                                            text={documentRecognitionDetails+"\n" +
                                             ""}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.5} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{position:"absolute",bottom:-25}}>
-                                        <CustomButtonLarge text={"300 EURO"} background={"red"} border={"2px solid red"}/>
+                                        <CustomButtonLarge text={documentRecognitionPrice} background={"red"} border={"2px solid red"}/>
                                     </Grid>
 
                                 </Grid>
@@ -96,19 +118,19 @@ const CostFees = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Job recruitment"}
+                                            text={jobRecruitment}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "10px",paddingBottom:"50px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"we will find you a reliable pre-selected employer\n" +
+                                            text={jobRecruitmentDetails+"\n" +
                                             ""}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{position:"absolute",bottom:-25}}>
-                                        <CustomButtonLarge text={"Free"} background={"red"} border={"2px solid red"}/>
+                                        <CustomButtonLarge text={jobRecruitmentPrice} background={"red"} border={"2px solid red"}/>
                                     </Grid>
 
                                 </Grid>
@@ -136,19 +158,19 @@ const CostFees = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Document Translation (Optional)"}
+                                            text={documentRecognition}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "10px",paddingBottom:"50px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"you require to translate most of your documents. We are offering you that service through our certified translators in Germany.\n" +
+                                            text={documentRecognitionDetails+"\n" +
                                             ""}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{position:"absolute",bottom:-25}}>
-                                        <CustomButtonLarge text={"35 Euro per page"} background={"red"} border={"2px solid red"}/>
+                                        <CustomButtonLarge text={documentRecognitionPrice} background={"red"} border={"2px solid red"}/>
                                     </Grid>
 
                                 </Grid>
@@ -176,19 +198,19 @@ const CostFees = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Visa Cost"}
+                                            text={visaCost}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "10px",paddingBottom:"50px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"Visa costs vary from country to country and can cost between 50-150€, in many cases the costs are covered by the employer.\n" +
+                                            text={visaCostDetails+"\n" +
                                             ""}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{position:"absolute",bottom:-25}}>
-                                        <CustomButtonLarge text={"50-150 Euro"} background={"red"} border={"2px solid red"}/>
+                                        <CustomButtonLarge text={visaCostPrice} background={"red"} border={"2px solid red"}/>
                                     </Grid>
 
                                 </Grid>
@@ -216,19 +238,19 @@ const CostFees = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Visa support (Optional)"}
+                                            text={visaSupport}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "10px",paddingBottom:"50px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"our dedicated team are specialized to support you by obtai...\n" +
+                                            text={visaSupportDetails+"\n" +
                                             ""}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{position:"absolute",bottom:-25}}>
-                                        <CustomButtonLarge text={"78 Euro"} background={"red"} border={"2px solid red"}/>
+                                        <CustomButtonLarge text={visaSupportPrice} background={"red"} border={"2px solid red"}/>
                                     </Grid>
 
                                 </Grid>
@@ -256,19 +278,19 @@ const CostFees = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Government Fees"}
+                                            text={governmantFee}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "10px",paddingBottom:"50px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"Fees that you have to pay to the authorities & government vary depending on the chamber, authority, or organization\n" +
+                                            text={governmantFeeDetails+"\n" +
                                             ""}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{position:"absolute",bottom:-25}}>
-                                        <CustomButtonLarge text={"100-600 Euro"} background={"red"} border={"2px solid red"}/>
+                                        <CustomButtonLarge text={governmantFeePrice} background={"red"} border={"2px solid red"}/>
                                     </Grid>
 
                                 </Grid>
@@ -296,19 +318,19 @@ const CostFees = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Flight Ticket"}
+                                            text={flightTicket}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "10px",paddingBottom:"50px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"If your flight ticket is not covered by your employer, you need to refer to the daily flight ticket prices.\n" +
+                                            text={flightTicketDetails+"\n" +
                                             ""}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{position:"absolute",bottom:-25}}>
-                                        <CustomButtonLarge text={"n.a"} background={"red"} border={"2px solid red"}/>
+                                        <CustomButtonLarge text={flightTicketPrice} background={"red"} border={"2px solid red"}/>
                                     </Grid>
 
                                 </Grid>
@@ -336,19 +358,19 @@ const CostFees = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Accommodation"}
+                                            text={accommodation}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "10px",paddingBottom:"50px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"Most of the time your employer is covering your accommodation, If your accommodation is not covered by your employer, the average cost per bed\n" +
+                                            text={accommodationDetails+"\n" +
                                             ""}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{position:"absolute",bottom:-25}}>
-                                        <CustomButtonLarge text={"12-25 Euro per day"} background={"red"} border={"2px solid red"}/>
+                                        <CustomButtonLarge text={accommodationPrice} background={"red"} border={"2px solid red"}/>
                                     </Grid>
 
                                 </Grid>

@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {
     CustomLabelHeader,
     CustomLabelHeaderLarge, CustomLabelHeaderLarge1,
@@ -21,9 +21,34 @@ import AccordionSummary from "@mui/material/AccordionSummary/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails/AccordionDetails";
 import AddIcon from '@mui/icons-material/Add';
 import CustomAccordian from "../common/accordian";
+import { useSelector } from "react-redux";
 
+let helpClients,FAQ,findTheAnsOFFAQ,applyForRecognition,applyForRecognitionDetails,qualified,qualifiedDetails,workinInGermany,workinInGermanyDetails,recognitionProcedureCost,recognitionProcedureCostDetails,recognitionForVisa,recognitionForVisaDetails,applyForRecognitionFromAbroad,applyForRecognitionFromAbroadDetails,recognitionProcess,recognitionProcessDetails,financialSupport,financialSupportDetails,certificatesOrDoc,certificatesOrDocDetails,needGermanLangSkill,needGermanLangSkillDetails,docRequired,docRequiredDetails
 
 const Faq = () => {
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                helpClients,FAQ,findTheAnsOFFAQ,applyForRecognition,applyForRecognitionDetails,qualified,qualifiedDetails,workinInGermany,workinInGermanyDetails,recognitionProcedureCost,recognitionProcedureCostDetails,recognitionForVisa,recognitionForVisaDetails,applyForRecognitionFromAbroad,applyForRecognitionFromAbroadDetails,recognitionProcess,recognitionProcessDetails,financialSupport,financialSupportDetails,certificatesOrDoc,certificatesOrDocDetails,needGermanLangSkill,needGermanLangSkillDetails,docRequired,docRequiredDetails
+                
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
+
+
     return (
         <Grid container justifyContent={"center"}
               sx={{marginTop: {xs: "calc(50vh - 250px)", sm: "calc(50vh - 250px)", lg: "calc(50vh - 300px)"}}}>
@@ -32,14 +57,14 @@ const Faq = () => {
                     <Grid item xs={5.8} container direction={"column"}>
                         <Grid item>
                             <CustomLabelLabelMedium
-                                text={"HOW WE HELP CLIENTS"}
+                                text={helpClients}
                                 color={"red"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
 
                         </Grid>
                         <Grid item style={{marginTop:"10px"}}>
                             <CustomLabelHeaderLarge1
-                                text={"Read All Frequently Asked Questions"}
+                                text={FAQ}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={1} lineHeight={1.7} textAlign={"left"}/>
 
@@ -48,7 +73,7 @@ const Faq = () => {
 
                     <Grid item container xs={5.8} alignItems={"center"}>
                         <CustomLabelLabelMedium
-                            text={"Here you can find the answers to frequently asked questions about the recognition of foreign professional qualifications in Germany and on other subjects.\n" +
+                            text={findTheAnsOFFAQ+"\n" +
                             ""}
                             color={"black"}
                             opacity={1} lineHeight={1.7} textAlign={"justify"}/>
@@ -58,51 +83,51 @@ const Faq = () => {
 
                 <Grid container style={{marginTop:"40px"}} direction={"column"}>
                     <Grid item>
-                       <CustomAccordian title={"Where do I apply for recognition?"}
-                                        description={"Register here at pafgermany.com and upload your certificates and documents. We will take care of your application for recognition."}/>
+                       <CustomAccordian title={applyForRecognition}
+                                        description={applyForRecognitionDetails}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"Can my qualification be recognized?"}
-                                         description={"Within the recognition procedure, it is checked whether the contents of your training are comparable with those of the equivalent German training. In some cases, you may have to undergo additional qualifications, present a language certificate, take part in a qualifying interview or pass another examination. You can find more information here\n"}/>
+                        <CustomAccordian title={qualified}
+                                         description={qualifiedDetails+"\n"}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"Can I work in Germany without recognition?"}
-                                         description={"If you come from a third country, you generally have to have your university degree recognized. Exceptions apply only to IT specialists and academic, non-regulated professions. Start your recognition here You can find out more about the recognition of academic professions here"}/>
+                        <CustomAccordian title={workinInGermany}
+                                         description={workinInGermanyDetails}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"What does the recognition procedure cost?"}
-                                         description={"If you come from a third country, you generally have to have your university degree recognized. Exceptions apply only to IT specialists and academic, non-regulated professions. Start your recognition here You can find out more about the recognition of academic professions here"}/>
+                        <CustomAccordian title={recognitionProcedureCost}
+                                         description={recognitionProcedureCostDetails}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"Is the recognition at the same time a visa for Germany?"}
-                                         description={"No. The recognition procedure is a separate, upstream procedure. You can apply for your visa with the notification of recognition. Start recognition now"}/>
+                        <CustomAccordian title={recognitionForVisa}
+                                         description={recognitionForVisaDetails}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"Can I also apply for recognition from abroad?"}
-                                         description={"Yes, absolutely! We even recommend it. Start recognition now"}/>
+                        <CustomAccordian title={applyForRecognitionFromAbroad}
+                                         description={applyForRecognitionFromAbroadDetails}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"How long does such a recognition process take?"}
-                                         description={"When you register with PAF, we review your documents, check them for completeness and then submit your application to the relevant authority. The processing at the authority takes an average of 3 months, in exceptional cases also significantly longer. Start recognition now"}/>
+                        <CustomAccordian title={recognitionProcess}
+                                         description={recognitionProcessDetails}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"Is there financial support for the recognition?"}
-                                         description={"Yes, there is the possibility of financial support under certain conditions. We will check if you are eligible upon request. Register now\n"}/>
+                        <CustomAccordian title={financialSupport}
+                                         description={financialSupportDetails+"\n"}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"I no longer have any certificates or documents. What can I do?"}
-                                         description={"In this case, depending on the profession, there is the possibility of proving your qualifications through theoretical and practical work samples and, if necessary, examinations. Start recognition now\n"}/>
-                    </Grid>
-
-                    <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"Do I need German language skills for the recognition procedure? German language skills?"}
-                                         description={"No, you do not need any knowledge of German for the application itself. However, for some professions and thus also for the recognition, knowledge of German must be proven. German language skills are also recommended for your stay in Germany. Start recognition now"}/>
+                        <CustomAccordian title={certificatesOrDoc}
+                                         description={certificatesOrDocDetails+"\n"}/>
                     </Grid>
 
+                    <Grid item style={{marginTop:"20px"}}>
+                        <CustomAccordian title={needGermanLangSkill}
+                                         description={needGermanLangSkillDetails}/>
+                    </Grid>
+
 
                     <Grid item style={{marginTop:"20px"}}>
-                        <CustomAccordian title={"What documents are required for the application for recognition?"}
-                                         description={"You need to submit the following documents when you register in the PAF portal: Proof of identity Certificates and proof of the content and duration of your professional qualification We will check your documents for completeness and contact you if further documents are needed Register now"}/>
+                        <CustomAccordian title={docRequired}
+                                         description={docRequiredDetails}/>
                     </Grid>
 
 

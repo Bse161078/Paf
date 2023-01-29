@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -17,23 +17,74 @@ import NursingDetail4Image4 from "src/assets/images/nursing-des4-img4.svg";
 import NursingDetail4Image5 from "src/assets/images/nursing-des4-img5.svg";
 import {CustomButtonLarge} from "../common/button";
 import {CustomTextField} from "../common/text";
+import { useSelector } from "react-redux";
+
+
+
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,salary,salaryDetails,tax,taxDetails,taxation,taxationDetails,socialSecurity,socialSecurityDetails,timlineOfRecognition,timlineOfRecognitionDetails
 
 
 const SalaryTax = () => {
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,salary,salaryDetails,tax,taxDetails,taxation,taxationDetails,socialSecurity,socialSecurityDetails,timlineOfRecognition,timlineOfRecognitionDetails
+    
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
     return (
         <Grid container justifyContent={"center"} sx={{marginTop: {xs:"calc(50vh - 250px)",sm:"calc(50vh - 250px)",lg:"calc(50vh - 300px)"}}}>
             <Grid item xs={9} container sx={{marginTop: {xs:"5px",md:"20px"}}} justifyContent={"space-between"}>
                 <Grid item container xs={12} md={7} direction={"column"}>
                     <Grid item>
                         <CustomLabelHeaderLarge
-                            text={"Salary"}
+                            text={salary}
                             color={"red"} fontWeight={"bold"}/>
                     </Grid>
 
 
                     <Grid item style={{marginTop: "20px"}}>
                         <CustomLabelLabelMedium
-                            text={"In Germany, various taxes will be deducted directly from your gross salary if you are employed. The salary transfer from your employee then “only” includes your net salary, i.e. your adjusted salary after deduction of taxes and social security and health insurance contributions. The pay slip will show exactly how much has been deducted for what. To estimate in advance how much your net income will be, you can use our gross-net calculator here:\n" +
+                            text={salaryDetails+"\n" +
                             ""}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -44,12 +95,12 @@ const SalaryTax = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Taxes"}
+                                text={tax}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
                             <CustomLabelLabelMedium
-                                text={"The most important tax for employees in Germany is income tax, i.e. the tax on your wages. Every month, your employer transfers the income tax to the tax office on your behalf as “wage tax”. In the beginning, you don’t have to worry about anything. However, keep all tax records in a safe place. The amount of income tax you pay depends on your income itself. The higher your income, the higher the tax rate. It also determines your tax bracket. Your tax class is influenced, for example, by factors such as marriage or children. If you are a member of the church, your employer also pays church tax to the tax office.\n" +
+                                text={taxDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -60,12 +111,12 @@ const SalaryTax = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Social Security"}
+                                text={socialSecurity}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
                             <CustomLabelLabelMedium
-                                text={"The social safety net in Germany is wide-ranging and offers people financial security, for example in the event of illness or unemployment. You are subject to social insurance in Germany as soon as you exceed a certain income threshold. For social insurance, a fixed percentage of your salary is paid directly from your gross salary into the social insurance fund, and your employer pays a further percentage. This automatically makes you a member of the pension, nursing care, accident, and unemployment insurance schemes. As an employee, you will receive a social security card with a social security number. Please keep this card in a safe place.\n" +
+                                text={socialSecurityDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -75,12 +126,12 @@ const SalaryTax = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Taxation"}
+                                text={taxation}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
                             <CustomLabelLabelMedium
-                                text={"After the end of a calendar year, you can file a tax return. In many cases, you are even obliged to do so, for example, if you have several employers or sources of income. To do this, you submit your income tax return online to the tax office via the Elster portal. Alternatively, you can also hire a tax consultant.\n" +
+                                text={taxationDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -90,12 +141,12 @@ const SalaryTax = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Timeline of the recognition process"}
+                                text={timlineOfRecognition}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
                             <CustomLabelLabelMedium
-                                text={"As soon as you have uploaded your documents to us, we will immediately check your documents for completeness and submit them to the relevant authorities. In our experience, the authorities usually take three to four months to review the documents. We have no influence on this time. However, with us you ensure that your applications are complete and plausible, which eliminates the need for queries and thus shortens the processing time.\n" +
+                                text={timlineOfRecognitionDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -111,14 +162,14 @@ const SalaryTax = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -130,7 +181,7 @@ const SalaryTax = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -143,7 +194,7 @@ const SalaryTax = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -156,7 +207,7 @@ const SalaryTax = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -169,7 +220,7 @@ const SalaryTax = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -181,7 +232,7 @@ const SalaryTax = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -189,7 +240,7 @@ const SalaryTax = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={signUp} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -201,7 +252,7 @@ const SalaryTax = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -212,7 +263,7 @@ const SalaryTax = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -224,7 +275,7 @@ const SalaryTax = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -236,7 +287,7 @@ const SalaryTax = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -248,7 +299,7 @@ const SalaryTax = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -262,7 +313,7 @@ const SalaryTax = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={submit} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

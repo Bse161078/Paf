@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium, CustomLabelLabelSmallMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -22,9 +22,58 @@ import ManyYearsExpIcon from "src/assets/images/many-years-exp.svg";
 import CompleteAccurateIcon from "src/assets/images/complete-accurate.svg";
 import ImmigrantSpecialistIcon from "src/assets/images/immigrant-specialist.svg";
 import VisaPerson from "src/assets/images/visa-persone.webp";
+import { useSelector } from "react-redux";
 
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,neededGerman,neededGermanDetails,experienceNeeded,variationOfPassage,accurateAdvice,immigrationSpecials,levelOfLanguages,languageCompetance,levelA,levelB,levelC,basicKnowledge,beginner,advanced,advancedKnowledge,nativeSpeaker,almostLike,highestLevel,learnGerman,countlessPossibilities,bestExams,examPrepration,talkToConsultant,onlineCourses
 
 const LanguageLessons = () => {
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,neededGerman,neededGermanDetails,experienceNeeded,variationOfPassage,accurateAdvice,immigrationSpecials,levelOfLanguages,languageCompetance,levelA,levelB,levelC,basicKnowledge,beginner,advanced,advancedKnowledge,nativeSpeaker,almostLike,highestLevel,learnGerman,countlessPossibilities,bestExams,examPrepration,talkToConsultant,onlineCourses
+        
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
+
     return (
         <Grid container justifyContent={"center"}
               sx={{marginTop: {xs: "calc(50vh - 250px)", sm: "calc(50vh - 250px)", lg: "calc(50vh - 300px)"}}}>
@@ -37,12 +86,12 @@ const LanguageLessons = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"How much GERMAN do you need?"}
+                                text={neededGerman}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"Even if you can communicate well in English in many places, especially in big cities, you will not be able to avoid learning German.For example, to work as a professional in Germany, it is essential to learn German. But not only for your professional start in Germany, but for your fulfilled and happy life here, the German language is a door opener.For certain positions and activities, a proof of your German language level is required, in some cases already for the application of your visa.Language courses with an official language certificate are available from many recognized telc-certified and countless private institutes, under a wide range of conditions. If you wish, we can help you find a suitable and accredited language school. We work exclusively with certified and reputable partners in this area.\n" +
+                                text={neededGermanDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -70,13 +119,13 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "5px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Many years of work experience"}
+                                            text={experienceNeeded}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "5px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"There are many variations of passages of Lorem Ipsum available"}
+                                            text={variationOfPassage}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
@@ -103,13 +152,13 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "5px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Complete and accurate advice"}
+                                            text={accurateAdvice}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "5px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"There are many variations of passages of Lorem Ipsum available."}
+                                            text={variationOfPassage}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
@@ -136,13 +185,13 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item style={{marginTop: "5px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"Immigration specialists"}
+                                            text={immigrationSpecials}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={1} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
                                     <Grid item style={{marginTop: "5px"}}>
                                         <CustomLabelLabelSmallMedium
-                                            text={"There are many variations of passages of Lorem Ipsum available"}
+                                            text={variationOfPassage}
                                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                             opacity={0.7} lineHeight={1.7} textAlign={"center"}/>
                                     </Grid>
@@ -154,12 +203,12 @@ const LanguageLessons = () => {
                     <Grid container style={{marginTop: "30px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"What are the levels of language?"}
+                                text={levelOfLanguages}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"The assessment of your German language skills is based on the Common European Framework of Reference for Languages (CEFR), which defines the following levels of language competence:\n" +
+                                text={languageCompetance+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -183,7 +232,7 @@ const LanguageLessons = () => {
                                     color={"black"} fontWeight={"bold"}/>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Basic knowledge and level of the German language"}
+                                        text={basicKnowledge}
                                         color={"black"} fontWeight={"normal"}
                                         opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -197,7 +246,7 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item xs style={{marginLeft: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"A1 – beginner"}
+                                            text={beginner}
                                             color={"black"} fontWeight={"normal"}
                                             opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
                                     </Grid>
@@ -212,7 +261,7 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item xs style={{marginLeft: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"A1 – beginner"}
+                                            text={beginner}
                                             color={"black"} fontWeight={"normal"}
                                             opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
                                     </Grid>
@@ -234,11 +283,11 @@ const LanguageLessons = () => {
                         <Grid item xs style={{marginLeft: "10px", marginTop: "-2px"}}>
                             <Grid container direction={"column"} justifyContent={"flex-start"}>
                                 <CustomLabelHeaderLarge
-                                    text={"Levels B1 and B2:"}
+                                    text={levelB}
                                     color={"black"} fontWeight={"bold"}/>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Advanced knowledge with which you can communicate in a differentiated way in everyday life and at work.\n" +
+                                        text={advancedKnowledge+"\n" +
                                         ""}
                                         color={"black"} fontWeight={"normal"}
                                         opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
@@ -253,7 +302,7 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item xs style={{marginLeft: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"B1 – Advanced"}
+                                            text={advanced}
                                             color={"black"} fontWeight={"normal"}
                                             opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
                                     </Grid>
@@ -268,7 +317,7 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item xs style={{marginLeft: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"B1 – beginner"}
+                                            text={advanced}
                                             color={"black"} fontWeight={"normal"}
                                             opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
                                     </Grid>
@@ -289,11 +338,11 @@ const LanguageLessons = () => {
                         <Grid item xs style={{marginLeft: "10px", marginTop: "-2px"}}>
                             <Grid container direction={"column"} justifyContent={"flex-start"}>
                                 <CustomLabelHeaderLarge
-                                    text={"Levels C1 and C2:"}
+                                    text={levelC}
                                     color={"black"} fontWeight={"bold"}/>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"German at native speaker level, business fluent, and competent\n" +
+                                        text={nativeSpeaker+"\n" +
                                         ""}
                                         color={"black"} fontWeight={"normal"}
                                         opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
@@ -308,7 +357,7 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item xs style={{marginLeft: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"C1 – Almost like native speakers"}
+                                            text={almostLike}
                                             color={"black"} fontWeight={"normal"}
                                             opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
                                     </Grid>
@@ -323,7 +372,7 @@ const LanguageLessons = () => {
                                     </Grid>
                                     <Grid item xs style={{marginLeft: "10px"}}>
                                         <CustomLabelLabelMedium
-                                            text={"C2 – You speak German at the very highest level"}
+                                            text={highestLevel}
                                             color={"black"} fontWeight={"normal"}
                                             opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
                                     </Grid>
@@ -337,12 +386,12 @@ const LanguageLessons = () => {
                     <Grid container style={{marginTop: "20px"}} direction={"column"}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Where can you learn German?"}
+                                text={learnGerman}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"There are countless possibilities to learn German. Since in some cases a proof of German language skills is already necessary for obtaining a visa, you can and must of course already learn German in your home country.\n" +
+                                text={countlessPossibilities+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"normal"}
                                 opacity={0.5} lineHeight={1.7} textAlign={"justify"}/>
@@ -358,7 +407,7 @@ const LanguageLessons = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Best Exam Preparation with us"}
+                                        text={bestExams}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -369,7 +418,7 @@ const LanguageLessons = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Exam Preparation with our center"}
+                                        text={examPrepration}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -380,7 +429,7 @@ const LanguageLessons = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Talk to one of our consultant today!"}
+                                        text={talkToConsultant}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -393,7 +442,7 @@ const LanguageLessons = () => {
 
                     <Grid container style={{marginTop: "40px"}}>
                         <CustomLabelLabelMedium
-                            text={"You can take an online course or attend a classroom course in many countries around the world. You can start with online courses, you can meet in a language cafe, you can compare various language courses. It will cost you time and in the end a lot of money. As with all training, the quality is crucial to whether you are successful afterwards or have simply paid apprenticeship money. With our many years of experience and cooperation with certified institutes, we only arrange suitable language courses that will bring you safely to your desired language level.\n" +
+                            text={onlineCourses+"\n" +
                             ""}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -414,14 +463,14 @@ const LanguageLessons = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -434,7 +483,7 @@ const LanguageLessons = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -448,7 +497,7 @@ const LanguageLessons = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -462,7 +511,7 @@ const LanguageLessons = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -476,7 +525,7 @@ const LanguageLessons = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -489,7 +538,7 @@ const LanguageLessons = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -497,7 +546,7 @@ const LanguageLessons = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"}
+                                            <CustomButtonLarge text={signUp} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
@@ -515,7 +564,7 @@ const LanguageLessons = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -527,7 +576,7 @@ const LanguageLessons = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -540,7 +589,7 @@ const LanguageLessons = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -553,7 +602,7 @@ const LanguageLessons = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -566,7 +615,7 @@ const LanguageLessons = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -577,7 +626,7 @@ const LanguageLessons = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"}
+                                            <CustomButtonLarge text={submit} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>

@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -17,21 +17,71 @@ import NursingDetail4Image4 from "src/assets/images/nursing-des4-img4.svg";
 import NursingDetail4Image5 from "src/assets/images/nursing-des4-img5.svg";
 import {CustomButtonLarge} from "../common/button";
 import {CustomTextField} from "../common/text";
+import { useSelector } from "react-redux";
 
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,dedicatedTeam,toWorkInGermany,provideImmigrationServicesExperienceAgents,trustedByPeople,moreThan20YearsOfExperience,youCanApplyForVisaAndImmigration,enterGermany,visaAndResidency,nurseTitle1,nurseTitle2,nurseTitle3,doctorsDemand,doctorCareer,germanyHealthcareSystem,healthCare,visaAndResidencySubtitle
 
 const Physicians = () => {
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,
+                dedicatedTeam,toWorkInGermany,provideImmigrationServicesExperienceAgents,trustedByPeople,moreThan20YearsOfExperience,youCanApplyForVisaAndImmigration,enterGermany,visaAndResidency,nurseTitle1,nurseTitle2,nurseTitle3,doctorsDemand,doctorCareer,germanyHealthcareSystem,healthCare,visaAndResidencySubtitle
+    
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
+
     return (
         <Grid container justifyContent={"center"} sx={{marginTop: {xs:"calc(50vh - 250px)",sm:"calc(50vh - 250px)",lg:"calc(50vh - 300px)"}}}>
             <Grid item xs={9} container sx={{marginTop: {xs:"5px",md:"20px"}}} justifyContent={"space-between"}>
                 <Grid item container xs={12} md={7} direction={"column"}>
                     <Grid item>
                         <CustomLabelHeaderLarge
-                            text={"Become part of one of the best healthcare systems in the world"}
+                            text={healthCare}
                             color={"red"} fontWeight={"bold"}/>
                     </Grid>
                     <Grid item style={{marginTop: "20px"}}>
                         <CustomLabelLabelMedium
-                            text={"According to a study (link to https://beyondhealth.de/ ), Germany’s healthcare system is among the top ten worldwide and has been for years. New treatment methods and state-of-the-art equipment in both inpatient and outpatient care, in a close-knit network of hospitals and physicians in private practice, ensure a very high level of medical care. In addition, there are a large number of digitization projects that are constantly opening up new opportunities in the healthcare sector. Since 2021, for example, there have been digital patient records and access to digital GEsundheitsanwendungen. In the wake of the pandemic, online diagnostics were partially approved. Overall, the German healthcare sector demonstrates great innovative strength and forms a very dynamic, lucrative economic sector. In 2020, more than 5.8 million people were employed in the German healthcare system, and the trend is still rising. Currently, more than 536,000 doctors ensure that patients receive the best possible care.\n" +
+                            text={germanyHealthcareSystem+"\n" +
                             ""}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -45,13 +95,13 @@ const Physicians = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Dedicated Team"}
+                                        text={nurseTitle1}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Nursing Professional available.\n"}
+                                        text={dedicatedTeam+"\n"}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -64,13 +114,13 @@ const Physicians = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Great Support"}
+                                        text={nurseTitle2}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Nursing Professional available."}
+                                        text={dedicatedTeam}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -83,13 +133,13 @@ const Physicians = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Government Certified"}
+                                        text={nurseTitle3}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Nursing Professional available."}
+                                        text={dedicatedTeam}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -100,12 +150,12 @@ const Physicians = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Your career as a doctor in Germany"}
+                                text={doctorCareer}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"In Germany, the demand for young physicians has been increasing for years and will continue to do so in the coming years – not only because many doctors in hospitals will be retiring. Among physicians in private practice, general practitioners and family doctors are in particular demand. Many doctors can no longer find a successor to take over their practice. In all rural areas of Germany – but especially in eastern Germany – medical care is declining rapidly. The number of foreign doctors working in Germany has more than doubled in the last ten years. More and more are applying for recognition of their qualifications in order to work in Germany. In 2020, 8,826 foreign female physicians applied for recognition of their foreign qualifications, and here, too, the trend is upward. And Germany is dependent on well-qualified junior staff – as described. As a male or female doctor, various career opportunities are open to you. In addition to employment in hospitals, clinics, health centers, geriatric care services, or home care services, you can also set up as a general practitioner or specialist and work independently. In addition, there are many other opportunities to work scientifically in research and teaching or to work in health offices, in the pharmaceutical industry, or in medical technology.\n" +
+                                text={doctorsDemand+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -116,12 +166,12 @@ const Physicians = () => {
                     <Grid container style={{marginTop: "20px"}} direction={"column"}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Visa & Residency"}
+                                text={visaAndResidency}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"To enter Germany, you need a visa, which can be applied for at the German embassy or consulate in your country.\n" +
+                                text={visaAndResidencySubtitle+"\n" +
                                 "\n"}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -137,7 +187,7 @@ const Physicians = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"You can apply for visa and immigration"}
+                                        text={youCanApplyForVisaAndImmigration}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -148,7 +198,7 @@ const Physicians = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"More than 20+ years of experience"}
+                                        text={moreThan20YearsOfExperience}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -159,7 +209,7 @@ const Physicians = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Trusted by people"}
+                                        text={trustedByPeople}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -170,7 +220,7 @@ const Physicians = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Provide Immigration Services Experience Agents"}
+                                        text={provideImmigrationServicesExperienceAgents}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -183,7 +233,7 @@ const Physicians = () => {
 
                     <Grid container style={{marginTop: "40px"}}>
                         <CustomLabelLabelMedium
-                            text={"To be able to work in Germany after entering the country, you will need a residence permit if you are not a citizen of the EU, Liechtenstein, Iceland, Norway, or Switzerland.We will of course support you in obtaining your visa and residence permit.\n" +
+                            text={toWorkInGermany+"\n" +
                             "\n"}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -199,14 +249,14 @@ const Physicians = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -218,7 +268,7 @@ const Physicians = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -231,7 +281,7 @@ const Physicians = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -244,7 +294,7 @@ const Physicians = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -257,7 +307,7 @@ const Physicians = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -269,7 +319,7 @@ const Physicians = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -277,7 +327,7 @@ const Physicians = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={signUp} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -289,7 +339,7 @@ const Physicians = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -300,7 +350,7 @@ const Physicians = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -312,7 +362,7 @@ const Physicians = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -324,7 +374,7 @@ const Physicians = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -336,7 +386,7 @@ const Physicians = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -350,7 +400,7 @@ const Physicians = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={submit} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

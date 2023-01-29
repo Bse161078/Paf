@@ -40,7 +40,7 @@ import DashboardIcon4 from 'src/assets/images/dashboard-icon4.svg';
 import TranslationIcon from 'src/assets/images/translation.svg';
 import RecognitionIcon from 'src/assets/images/recognition.svg';
 import AcademicIcon from 'src/assets/images/academic.svg';
-
+import { useSelector } from "react-redux";
 
 export const initialRegister = {
     title: {value: null, error: "Document Title cant be empty", showError: false},
@@ -58,6 +58,8 @@ const initialConfirmation = {
     buttonNo: null
 }
 
+let dashboard,submission,progress,approved,rejected,applyForServices,translation,recognition,academy,documentLegalTranslation,pafAcademy,documentRecognition,submit,comingSoon
+
 const Profile = () => {
 
     let navigate = useNavigate();
@@ -65,6 +67,26 @@ const Profile = () => {
 
     const [stats,setStats]=useState({submission:0,inProgress:0,approved:0,rejected:0});
     const [count,setCount]=useState(0);
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                dashboard,submission,progress,approved,rejected,applyForServices,translation,recognition,academy,documentLegalTranslation,pafAcademy,documentRecognition,submit,comingSoon
+
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
 
 
     useEffect(()=>{
@@ -91,7 +113,7 @@ const Profile = () => {
                 <Grid item xs={12} container direction={"column"} justifyContent={"space-between"}>
                     <Grid container direction={"column"}>
                         <Grid item>
-                            <CustomLabelHeaderLarge text={"Dashboard"} color={"red"} fontWeight={"bold"}/>
+                            <CustomLabelHeaderLarge text={dashboard} color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
                             <img src={YellowDividerIcon}/>
@@ -115,7 +137,7 @@ const Profile = () => {
                                     <Grid item>
                                         <Grid container direction={"column"} alignItems={"center"}>
                                             <Grid item>
-                                                <CustomLabelLabelMedium text={"Submission"} color={"#757575"}
+                                                <CustomLabelLabelMedium text={submission} color={"#757575"}
                                                                         fontWeight={"bold"}/>
                                             </Grid>
                                             <Grid item style={{marginTop: "30px"}}>
@@ -146,7 +168,7 @@ const Profile = () => {
                                     <Grid item>
                                         <Grid container direction={"column"} alignItems={"center"}>
                                             <Grid item>
-                                                <CustomLabelLabelMedium text={"In Progress"} color={"#757575"}
+                                                <CustomLabelLabelMedium text={progress} color={"#757575"}
                                                                         fontWeight={"bold"}/>
                                             </Grid>
                                             <Grid item style={{marginTop: "30px"}}>
@@ -177,7 +199,7 @@ const Profile = () => {
                                     <Grid item>
                                         <Grid container direction={"column"} alignItems={"center"}>
                                             <Grid item>
-                                                <CustomLabelLabelMedium text={"Approved"} color={"#757575"}
+                                                <CustomLabelLabelMedium text={approved} color={"#757575"}
                                                                         fontWeight={"bold"}/>
                                             </Grid>
                                             <Grid item style={{marginTop: "30px"}}>
@@ -208,7 +230,7 @@ const Profile = () => {
                                     <Grid item>
                                         <Grid container direction={"column"} alignItems={"center"}>
                                             <Grid item>
-                                                <CustomLabelLabelMedium text={"Rejected"} color={"#757575"}
+                                                <CustomLabelLabelMedium text={rejected} color={"#757575"}
                                                                         fontWeight={"bold"}/>
                                             </Grid>
                                             <Grid item style={{marginTop: "30px"}}>
@@ -224,7 +246,7 @@ const Profile = () => {
                     </Grid>
                     <Grid container direction={"column"} style={{marginTop:"40px"}}>
                         <Grid item>
-                            <CustomLabelHeaderLarge text={"Apply for services"} color={"red"} fontWeight={"bold"}/>
+                            <CustomLabelHeaderLarge text={applyForServices} color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
                             <img src={YellowDividerIcon}/>
@@ -242,15 +264,15 @@ const Profile = () => {
                                                 <img src={TranslationIcon}/>
                                             </Grid>
                                             <Grid item style={{marginLeft:"10px"}}>
-                                                <CustomLabelLabelMedium text={"Translation"} color={"black"}/>
+                                                <CustomLabelLabelMedium text={translation} color={"black"}/>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item>
-                                        <CustomLabelHeader text={"Document Legal Translation"} color={"black"} fontWeight={"bold"}/>
+                                        <CustomLabelHeader text={documentLegalTranslation} color={"black"} fontWeight={"bold"}/>
                                     </Grid>
                                     <Grid item onClick={(e)=>navigate('/dashboard/translate')}>
-                                        <CustomButtonLarge text={"Submit"} background={"red"} color={"white"}/>
+                                        <CustomButtonLarge text={submit} background={"red"} color={"white"}/>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -266,15 +288,15 @@ const Profile = () => {
                                                 <img src={RecognitionIcon}/>
                                             </Grid>
                                             <Grid item style={{marginLeft:"10px"}}>
-                                                <CustomLabelLabelMedium text={"Recognition"} color={"red"}/>
+                                                <CustomLabelLabelMedium text={recognition} color={"red"}/>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item>
-                                        <CustomLabelHeader text={"Document Recognition"} color={"black"} fontWeight={"bold"}/>
+                                        <CustomLabelHeader text={documentRecognition} color={"black"} fontWeight={"bold"}/>
                                     </Grid>
                                     <Grid item onClick={(e)=>navigate('/dashboard/recognition')}>
-                                        <CustomButtonLarge text={"Submit"} background={"red"} color={"white"}/>
+                                        <CustomButtonLarge text={submit} background={"red"} color={"white"}/>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -290,15 +312,15 @@ const Profile = () => {
                                                 <img src={AcademicIcon}/>
                                             </Grid>
                                             <Grid item style={{marginLeft:"10px"}}>
-                                                <CustomLabelLabelMedium text={"Academy"} color={"#FFCC00"}/>
+                                                <CustomLabelLabelMedium text={academy} color={"#FFCC00"}/>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item>
-                                        <CustomLabelHeader text={"PAF Academy"} color={"black"} fontWeight={"bold"}/>
+                                        <CustomLabelHeader text={pafAcademy} color={"black"} fontWeight={"bold"}/>
                                     </Grid>
                                     <Grid item >
-                                        <CustomButtonLarge text={"Coming Soon"} background={"red"} color={"white"}/>
+                                        <CustomButtonLarge text={comingSoon} background={"red"} color={"white"}/>
                                     </Grid>
                                 </Grid>
                             </Paper>

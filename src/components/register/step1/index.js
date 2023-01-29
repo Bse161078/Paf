@@ -20,7 +20,7 @@ import {getFireStoreDb} from "../../../config/firebase";
 import Loader from "../../common/Loader";
 import Button from "@mui/material/Button/Button";
 import ResponsiveConfirmationDialog from "../../common/ResponsiveConfirmation";
-
+import { useSelector } from "react-redux";
 
 export const initialRegister = {
     firstName: {value: null, error: "First name cant be empty", showError: false},
@@ -39,6 +39,9 @@ const initialConfirmation = {
     buttonYes: null,
     buttonNo: null
 }
+
+let createAccount,firstName,lastName,email,password,confirmPassword,signUpTitle,readTerms,termsAndConditionsLink,privacyPolicyLink,and,cancellationPolicy,cancellationPolicyLink,withdrawCancellation,confirmationSignup,typeFirstName,typeLastName,typeEmail,typeConfirmPassword,typePassword,validEmail,validPassword;
+
 const RegisterStep1 = (props) => {
     let navigate = useNavigate();
     const [user,setUser]=useState(initialRegister);
@@ -46,6 +49,22 @@ const RegisterStep1 = (props) => {
     const [terms,setTerms]=useState({privacyPolicy:false,cancellationPolicy:false,validInfo:false})
     const [loading, setLoading] = useState(false);
     const [confirmation, setConfirmation] = useState(initialConfirmation);
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+  
+    const loadConstant = async () => {
+        setLoading(true);
+        ({
+            createAccount,firstName,lastName,email,password,confirmPassword,signUpTitle,readTerms,termsAndConditionsLink,privacyPolicyLink,and,cancellationPolicy,cancellationPolicyLink,withdrawCancellation,confirmationSignup,typeFirstName,typeLastName,typeEmail,typeConfirmPassword,typePassword,typeConfirmPassword,validEmail,validPassword
+
+        } =
+            selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+        setLoading(false);
+        setCount(count + 1)
+    }
+
+    useEffect(() => {
+        loadConstant();
+    }, [selectedLanguage])
 
 
 
@@ -69,7 +88,7 @@ const RegisterStep1 = (props) => {
             if (validatePassword(data.password.value)) {
                 data = {...data, password: {...data.password, showError: false, error: ""}}
             } else {
-                data = {...data, password: {...data.password, showError: true, error: "Password must have at least 8 characters"}}
+                data = {...data, password: {...data.password, showError: true, error: validPassword}}
             }
         }
 
@@ -77,7 +96,7 @@ const RegisterStep1 = (props) => {
             if (validateEmail(data.email.value)) {
                 data = {...data, email: {...data.email, showError: false, error: ""}}
             } else {
-                data = {...data, email: {...data.email, showError: true, error: "Please enter valid email address"}}
+                data = {...data, email: {...data.email, showError: true, error: validEmail}}
             }
         }
 
@@ -178,12 +197,12 @@ const RegisterStep1 = (props) => {
             >
                 <Grid item>
                     <CustomLabelHeaderExtraLarge
-                        text={"Sign up"}
+                        text={signUpTitle}
                         color={"black"} fontWeight={"bold"}/>
                 </Grid>
                 <Grid item style={{marginTop: "20px"}}>
                     <CustomLabelLabelMedium
-                        text={"Create account to start using PAF"}
+                        text={createAccount}
                         color={"black"} fontWeight={"bold"} color={"black"} fontWeight={"bold"}
                         opacity={1} lineHeight={1.7} textAlign={"center"}/>
                 </Grid>
@@ -192,12 +211,12 @@ const RegisterStep1 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelLabelMedium
-                                text={"First name"}
+                                text={firstName}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
                         <Grid item container>
-                            <CustomAuthTextField placeholder={"type first name here"}
+                            <CustomAuthTextField placeholder={typeFirstName}
                                                  value={user.firstName.value}
                                                  onChange={(e) => onChange(e, "firstName")}
                                                  showError={user.firstName.showError}
@@ -207,12 +226,12 @@ const RegisterStep1 = (props) => {
                     <Grid item xs={12} md={5.5} container sx={{marginTop: {xs: "20px", md: "0px"}}}>
                         <Grid item>
                             <CustomLabelLabelMedium
-                                text={"Last name"}
+                                text={lastName}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
                         <Grid item container>
-                            <CustomAuthTextField placeholder={"type last name here"}
+                            <CustomAuthTextField placeholder={typeLastName}
                                                  value={user.lastName.value}
                                                  onChange={(e) => onChange(e, "lastName")}
                                                  showError={user.lastName.showError}
@@ -225,12 +244,12 @@ const RegisterStep1 = (props) => {
                 <Grid item container style={{marginTop: "20px"}}>
                     <Grid item>
                         <CustomLabelLabelMedium
-                            text={"Email"}
+                            text={email}
                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                             lineHeight={1.7}/>
                     </Grid>
                     <Grid item container>
-                        <CustomAuthTextField placeholder={"type email here"}
+                        <CustomAuthTextField placeholder={typeEmail}
                                              value={user.email.value}
                                              onChange={(e) => onChange(e, "email")}
                                              showError={user.email.showError}
@@ -242,12 +261,12 @@ const RegisterStep1 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelLabelMedium
-                                text={"Password"}
+                                text={password}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
                         <Grid item container>
-                            <CustomAuthTextField placeholder={"type password here"}
+                            <CustomAuthTextField placeholder={typePassword}
                                                  type={"password"}
                                                  value={user.password.value}
                                                  onChange={(e) => onChange(e, "password")}
@@ -258,12 +277,12 @@ const RegisterStep1 = (props) => {
                     <Grid item xs={12} md={5.5} container sx={{marginTop: {xs: "20px", md: "0px"}}}>
                         <Grid item>
                             <CustomLabelLabelMedium
-                                text={"Confirm password"}
+                                text={confirmPassword}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
                         <Grid item container>
-                            <CustomAuthTextField placeholder={"type confirm password here"}
+                            <CustomAuthTextField placeholder={typeConfirmPassword}
                                                  type={"password"}
                                                  value={user.confirmPassword.value}
                                                  onChange={(e) => onChange(e, "confirmPassword")}
@@ -280,27 +299,27 @@ const RegisterStep1 = (props) => {
                     </Grid>
                     <Grid item xs style={{marginLeft: "5px"}}>
                         <CustomLabelLabelSmallHeader
-                            text={"I have read "}
+                            text={readTerms}
                             color={"black"} fontWeight={"bold"} textAlign={"left"}
                             opacity={1} lineHeight={1.7}>
                             <span style={{cursor:"pointer"}} onClick={(e)=>onChangeLink('/terms-condition')}>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={"the terms and condition "}
+                                    text={termsAndConditionsLink}
                                     color={"red"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
                             <span>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={"and "}
+                                    text={and}
                                     color={"black"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
                             <span style={{cursor:"pointer"}} onClick={(e)=>onChangeLink('/privacy-policy')}>
                                 <CustomLabelLabelSmallHeader
                                     inline={"inline"}
-                                    text={" the privacy policy"}
+                                    text={privacyPolicyLink}
                                     color={"red"} fontWeight={"bold"} textAlign={"left"}
                                     opacity={1} lineHeight={1.7}/>
                             </span>
@@ -314,13 +333,13 @@ const RegisterStep1 = (props) => {
                     </Grid>
                     <Grid item xs style={{marginLeft: "5px"}}>
                         <CustomLabelLabelSmallHeader
-                            text={"I have read"}
+                            text={readTerms}
                             color={"black"} fontWeight={"bold"} textAlign={"left"}
                             opacity={1} lineHeight={1.7}>
                             <span style={{cursor:"pointer"}} onClick={(e)=>onChangeLink('/cancellation-policy')}>
                                <CustomLabelLabelSmallHeader
                                    inline={"inline"}
-                                   text={" the cancellation policy"}
+                                   text={cancellationPolicyLink}
                                    color={"red"} fontWeight={"bold"} textAlign={"left"}
                                    opacity={1} lineHeight={1.7}/>
 
@@ -328,7 +347,7 @@ const RegisterStep1 = (props) => {
                             <span>
                                <CustomLabelLabelSmallHeader
                                    inline={"inline"}
-                                   text={" here by widthdraw from my right of cancellation"}
+                                   text={withdrawCancellation}
                                    color={"black"} fontWeight={"bold"} textAlign={"left"}
                                    opacity={1} lineHeight={1.7}/>
 
@@ -343,7 +362,7 @@ const RegisterStep1 = (props) => {
                     </Grid>
                     <Grid item xs style={{marginLeft: "5px"}}>
                         <CustomLabelLabelSmallHeader
-                            text={"Yes, I hereby confirm that I have filled in all the information conscientiously and truthfully and hereby instruct PAF Germany GmbH to apply for my professional recognition."}
+                            text={confirmationSignup}
                             color={"black"} fontWeight={"bold"} textAlign={"left"}
                             opacity={1} lineHeight={1.7}/>
                     </Grid>
@@ -352,7 +371,7 @@ const RegisterStep1 = (props) => {
                 <Grid container style={{marginTop: "20px"}}>
                     <Grid item onClick={(e)=>(terms.validInfo && terms.privacyPolicy && terms.cancellationPolicy) && onRegisterUser()}>
                         <CustomButtonLarge disabled={!terms.privacyPolicy || !terms.cancellationPolicy || !terms.validInfo}
-                                           text={"Sign up"} background={"red"} border={"2px solid red"}/>
+                                           text={signUpTitle} background={"red"} border={"2px solid red"}/>
                     </Grid>
                 </Grid>
 

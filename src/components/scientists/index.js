@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -17,21 +17,75 @@ import NursingDetail4Image4 from "src/assets/images/nursing-des4-img4.svg";
 import NursingDetail4Image5 from "src/assets/images/nursing-des4-img5.svg";
 import {CustomButtonLarge} from "../common/button";
 import {CustomTextField} from "../common/text";
+import { useSelector } from "react-redux";
+
+
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,dedicatedTeam,toWorkInGermany,provideImmigrationServicesExperienceAgents,trustedByPeople,moreThan20YearsOfExperience,youCanApplyForVisaAndImmigration,enterGermany,visaAndResidency,nurseTitle1,nurseTitle2,nurseTitle3,scholorshipPrograms,dissertation,degree,naturalScientists,innovation,visaAndResidencySubtitle,scientistsTitle
+
 
 
 const Scientists = () => {
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+    const [loading, setLoading] = useState(false);
+    const [count, setCount] = useState(0);
+
+    const loadConstant = async () => {
+        setLoading(true);
+        ({
+            
+            nursingFullService,
+            germany,
+            checkDocument,
+            translationDocuments,
+            applicationAuthorities,
+            supportSearch,
+            helpOpening,
+            freeAssessment,
+            name,
+            phone,
+            selectImmigration,
+            message,
+            signUp,
+            submit,dedicatedTeam,toWorkInGermany,provideImmigrationServicesExperienceAgents,trustedByPeople,moreThan20YearsOfExperience,youCanApplyForVisaAndImmigration,enterGermany,visaAndResidency,nurseTitle1,nurseTitle2,nurseTitle3,scholorshipPrograms,dissertation,degree,naturalScientists,innovation,visaAndResidencySubtitle,scientistsTitle
+
+
+
+        } =
+            selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+        setLoading(false);
+        setCount(count + 1)
+    }
+
+    useEffect(() => {
+        loadConstant();
+    }, [selectedLanguage])
+
+
     return (
         <Grid container justifyContent={"center"} sx={{marginTop: {xs:"calc(50vh - 250px)",sm:"calc(50vh - 250px)",lg:"calc(50vh - 300px)"}}}>
             <Grid item xs={9} container sx={{marginTop: {xs:"5px",md:"20px"}}} justifyContent={"space-between"}>
                 <Grid item container xs={12} md={7} direction={"column"}>
                     <Grid item>
                         <CustomLabelHeaderLarge
-                            text={"Scientists"}
+                            text={scientistsTitle}
                             color={"red"} fontWeight={"bold"}/>
                     </Grid>
                     <Grid item style={{marginTop: "20px"}}>
                         <CustomLabelLabelMedium
-                            text={"According to the Bloomberg Innovation Index, Germany will be the 4th most innovative country in the world in 2021. Innovations are on the agenda in all sectors: Automotive, Energy & Environmental Protection, in the chemical and pharmaceutical industries and, of course, in mechanical and plant engineering. As a scientist, you research and develop the future, in Germany for the world. In modern laboratories, at private research institutes, as a product developer or in research and teaching on behalf of the government.\n" +
+                            text={innovation+"\n" +
                             ""}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -45,13 +99,13 @@ const Scientists = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Dedicated Team"}
+                                        text={nurseTitle1}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Scientists available.\n"}
+                                        text={dedicatedTeam+"\n"}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -64,13 +118,13 @@ const Scientists = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Great Support"}
+                                        text={nurseTitle2}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Scientists available.\n"}
+                                        text={dedicatedTeam+"\n"}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -83,13 +137,13 @@ const Scientists = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Government Certified"}
+                                        text={nurseTitle3}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Scientists available.\n"}
+                                        text={dedicatedTeam+"\n"}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -100,12 +154,12 @@ const Scientists = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Natural scientists are in high demand"}
+                                text={naturalScientists}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"With a degree in biotechnology, chemistry, environmental or energy technology, in pharmacy or physics or mathematics, you can work in many positions across industries. If you are interested in marketing and sales or consulting, if you want to work in management, or if you would like to work in research or teaching, then start your recognition process now. In order to maintain and expand its innovative status, Germany needs researchers, innovators and doers like you!\n" +
+                                text={degree+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -115,12 +169,12 @@ const Scientists = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Your dissertation in Germany"}
+                                text={dissertation}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"You want to write your dissertation in Germany? Many companies have their own R&D departments where you can do research and earn money even as a doctoral student. Or apply for a scholarship program. We can help you find the right one for you.\n" +
+                                text={scholorshipPrograms+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -131,12 +185,12 @@ const Scientists = () => {
                     <Grid container style={{marginTop: "20px"}} direction={"column"}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Visa & Residency"}
+                                text={visaAndResidency}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"To enter Germany, you need a visa, which can be applied for at the German embassy or consulate in your country.\n" +
+                                text={visaAndResidencySubtitle+"\n" +
                                 "\n"}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -152,7 +206,7 @@ const Scientists = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"You can apply for visa and immigration"}
+                                        text={youCanApplyForVisaAndImmigration}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -163,7 +217,7 @@ const Scientists = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"More than 20+ years of experience"}
+                                        text={moreThan20YearsOfExperience}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -174,7 +228,7 @@ const Scientists = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Trusted by people"}
+                                        text={trustedByPeople}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -185,7 +239,7 @@ const Scientists = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Provide Immigration Services Experience Agents"}
+                                        text={provideImmigrationServicesExperienceAgents}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -198,7 +252,7 @@ const Scientists = () => {
 
                     <Grid container style={{marginTop: "40px"}}>
                         <CustomLabelLabelMedium
-                            text={"To be able to work in Germany after entering the country, you will need a residence permit if you are not a citizen of the EU, Liechtenstein, Iceland, Norway, or Switzerland.We will of course support you in obtaining your visa and residence permit.\n" +
+                            text={toWorkInGermany+"\n" +
                             "\n"}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -214,14 +268,14 @@ const Scientists = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -233,7 +287,7 @@ const Scientists = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -246,7 +300,7 @@ const Scientists = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -259,7 +313,7 @@ const Scientists = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -272,7 +326,7 @@ const Scientists = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -284,7 +338,7 @@ const Scientists = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -292,7 +346,7 @@ const Scientists = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={signUp} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -304,7 +358,7 @@ const Scientists = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -315,7 +369,7 @@ const Scientists = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -327,7 +381,7 @@ const Scientists = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -339,7 +393,7 @@ const Scientists = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -351,7 +405,7 @@ const Scientists = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -365,7 +419,7 @@ const Scientists = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={submit} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

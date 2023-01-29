@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium, CustomLabelLabelSmallMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -22,9 +22,60 @@ import ManyYearsExpIcon from "src/assets/images/many-years-exp.svg";
 import CompleteAccurateIcon from "src/assets/images/complete-accurate.svg";
 import ImmigrantSpecialistIcon from "src/assets/images/immigrant-specialist.svg";
 import VisaPerson from "src/assets/images/visa-persone.webp";
+import { useSelector } from "react-redux";
+
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,gross,grossDetails,workingHours,workingHoursDetails,costOfLiving,costOfLivingDetails,germanSpending
 
 
 const LivingExpenses = () => {
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,gross,grossDetails,workingHours,workingHoursDetails,costOfLiving,costOfLivingDetails,germanSpending
+
+                
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
+
     return (
         <Grid container justifyContent={"center"}
               sx={{marginTop: {xs: "calc(50vh - 250px)", sm: "calc(50vh - 250px)", lg: "calc(50vh - 300px)"}}}>
@@ -34,12 +85,12 @@ const LivingExpenses = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Gross is not the same as net"}
+                                text={gross}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"Mit einem sozialversicherungspflichtigen Arbeitsplatz wirst du automatisch sozialversichert. Das heißt, dass du Beiträge an die Rentenkasse, Arbeitslosen-, Kranken- und Pflegeversicherung abführst. Die Beiträge gehen direkt von deinem Gehalt ab und werden von deinem Arbeitgeber an die Institutionen überwiesen. Ebenfalls automatisch wird deine Lohnsteuer von deinem Gehalt an das Finanzamt abgeführt. Somit ergibt sich eine Differenz zwischen deinem im Arbeitsvertrag verhandelten Bruttogehalt und deinem ausgezahlten Gehalt, welches auch als Nettogehalt bezeichnet wird. Die Höhe der Beiträge sind abhängig von deinem Einkommen, Bundesland, Steuerklasse, Krankenkasse und Familienstand. Dein Arbeitgeber zahlt dazu auch noch einen Beitrag in die Sozialversicherung für dich ein, diese Beiträge deines Arbeitgeber sind nicht Teil deines Gehalts. Wenn du vorab wissen möchtest, wie hoch dein Netto-Gehalt ausfällt, kannst du das mit einem Brutto-Netto-Rechner berechnen.\n" +
+                                text={grossDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -50,12 +101,12 @@ const LivingExpenses = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Working hours, vacation & holidays"}
+                                text={workingHours}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"The average workweek for full-time employed workers was 41 hours in 2019. Of course, actual working hours depend on the occupation, employer, and negotiated contract or any collective bargaining agreement that governs working conditions for entire industries. On average, employers in Germany grant their employees 28 days of vacation. Here, too, the entitlement varies according to profession, age and employer. In addition to the vacation entitlement, there are also public holidays, which in turn vary according to state and year. Bavaria and Baden-Württemberg have the most public holidays, while the northern states have only 10.\n" +
+                                text={workingHoursDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -66,12 +117,12 @@ const LivingExpenses = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Cost of living in Germany"}
+                                text={costOfLiving}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"The cost of living varies greatly, influenced primarily by where you live and the cost of renting or maintaining your home. For example, costs in metropolitan areas and large cities are clearly at a different level than in rural areas. In 2020, the average cost of living was €2,507 per household per month, of which around 37% was for housing and energy costs. In Germany, there is a pronounced discounter market competition for food, which ensures that despite rising prices, the pure food prices remain moderate in European comparison. Would you like to take your chance in Germany now? Then your first step is quickly made with registration. We will check the recognition of your qualification and, if you wish, we will support you in all further steps!\n" +
+                                text={costOfLivingDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -81,12 +132,12 @@ const LivingExpenses = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Cost of living in Germany"}
+                                text={costOfLiving}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"Albert Einstein once said, “The best things in life are not those that money can buy.” That may well be true. However, in 2019, Germans spent an average of €2,574.00 per household per month on all utility costs. Most money was spent on housing, energy and home maintenance (€890.00). These were followed But leisure and culture are not neglected either: every month, Germans spend € 284.00 on activities such as sports and visits to the cinema.\n" +
+                                text={germanSpending+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -108,14 +159,14 @@ const LivingExpenses = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -128,7 +179,7 @@ const LivingExpenses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -142,7 +193,7 @@ const LivingExpenses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -156,7 +207,7 @@ const LivingExpenses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -170,7 +221,7 @@ const LivingExpenses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -183,7 +234,7 @@ const LivingExpenses = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -191,7 +242,7 @@ const LivingExpenses = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"}
+                                            <CustomButtonLarge text={signUp} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
@@ -209,7 +260,7 @@ const LivingExpenses = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -221,7 +272,7 @@ const LivingExpenses = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -234,7 +285,7 @@ const LivingExpenses = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -247,7 +298,7 @@ const LivingExpenses = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -260,7 +311,7 @@ const LivingExpenses = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -271,7 +322,7 @@ const LivingExpenses = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"}
+                                            <CustomButtonLarge text={submit} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>

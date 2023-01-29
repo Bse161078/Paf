@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -17,23 +17,74 @@ import NursingDetail4Image4 from "src/assets/images/nursing-des4-img4.svg";
 import NursingDetail4Image5 from "src/assets/images/nursing-des4-img5.svg";
 import {CustomButtonLarge} from "../common/button";
 import {CustomTextField} from "../common/text";
+import { useSelector } from "react-redux";
+
+
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,employementContract,employementContractDetails,employementContractPoints,employementContractPointsDetails
 
 
 const WorkContract = () => {
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,employementContract,employementContractDetails,employementContractPoints,employementContractPointsDetails
+
+    
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
     return (
         <Grid container justifyContent={"center"} sx={{marginTop: {xs:"calc(50vh - 250px)",sm:"calc(50vh - 250px)",lg:"calc(50vh - 300px)"}}}>
             <Grid item xs={9} container sx={{marginTop: {xs:"5px",md:"20px"}}} justifyContent={"space-between"}>
                 <Grid item container xs={12} md={7} direction={"column"}>
                     <Grid item>
                         <CustomLabelHeaderLarge
-                            text={"Your German Employment Contract"}
+                            text={employementContract}
                             color={"red"} fontWeight={"bold"}/>
                     </Grid>
 
 
                     <Grid item style={{marginTop: "20px"}}>
                         <CustomLabelLabelMedium
-                            text={"Once your qualifications have been successfully recognized, nothing stands in the way of your new employment relationship. In an employment relationship, your employment contract is your legal basis. If you are not sure, please contact us and we will check the legal aspects of your employment contract.\n" +
+                            text={employementContractDetails+"\n" +
                             ""}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -44,12 +95,12 @@ const WorkContract = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"The following points must be included in an employment contract in any case:"}
+                                text={employementContractPoints}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "20px"}}>
                             <CustomLabelLabelMedium
-                                text={"Name and address of the employer and the employee. Start date of the contract: the date on which your contract starts. Term: If your contract is for a fixed term, the end date must be stated. Probation period: duration of the probationary period with the definition of the notice period within the probationary period. Place of work: Where are the places of work for the fulfillment of your duties located Job description: What are your duties Salary: How much will you receive for your work, what bonuses or supplements will be paid, and when will the employee transfer your salary. When negotiating your salary, please keep in mind that in the standard case your salary is negotiated gross, your payment is then made net, i.e. after deduction of health, nursing care, pension and unemployment insurance. Working hours: Usually stated in hours per week Vacation: How many days of paid vacation are you entitled to per year? Period of notice: With what period of notice can you or your employer terminate the employment contract? Collective agreements and company agreements: Special regulations may apply in addition to your employment contract: In many areas, collective agreements apply or special works agreements apply. These must be referred to in the employment contract.\n" +
+                                text={employementContractPointsDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -66,14 +117,14 @@ const WorkContract = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -85,7 +136,7 @@ const WorkContract = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -98,7 +149,7 @@ const WorkContract = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -111,7 +162,7 @@ const WorkContract = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -124,7 +175,7 @@ const WorkContract = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -136,7 +187,7 @@ const WorkContract = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -144,7 +195,7 @@ const WorkContract = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={signUp} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -156,7 +207,7 @@ const WorkContract = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -167,7 +218,7 @@ const WorkContract = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -179,7 +230,7 @@ const WorkContract = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -191,7 +242,7 @@ const WorkContract = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -203,7 +254,7 @@ const WorkContract = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -217,7 +268,7 @@ const WorkContract = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={submit} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

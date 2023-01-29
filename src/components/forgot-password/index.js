@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid/Grid";
 import AuthBackground from 'src/assets/images/auth-background.png';
 import {CustomLabelHeaderExtraLarge, CustomLabelHeaderLarge, CustomLabelLabelMedium} from "../common/label";
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import {CustomAuthTextField, CustomTextField} from "../common/text";
 import {CustomButtonLarge} from "../common/button";
 import Box from "@mui/material/Box/Box";
@@ -14,7 +14,7 @@ import { getAuth, signInWithEmailAndPassword,signOut,sendPasswordResetEmail,fetc
 import {useLocation,useOutletContext,Outlet,useNavigate} from 'react-router-dom';
 import Loader from "../common/Loader";
 import ResponsiveConfirmationDialog from "../common/ResponsiveConfirmation";
-
+import { useSelector } from "react-redux";
 
 export const initialRegister = {
     email: {value: null, error: "Email cant be empty", showError: false}
@@ -32,12 +32,31 @@ const initialConfirmation = {
     buttonNo: null
 }
 
+let forgotPasswordHeading,verificationLink,sendEmail,email,typeEmail
+
 const ForgotPassword=()=>{
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(initialRegister);
     let navigate = useNavigate();
     const [confirmation, setConfirmation] = useState(initialConfirmation);
     const [count,setCount]=useState(0);
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+
+    const loadConstant = async () => {
+        setLoading(true);
+        ({
+            
+            forgotPasswordHeading,verificationLink,sendEmail,email,typeEmail
+
+        } =
+            selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+        setLoading(false);
+        setCount(count + 1)
+    }
+
+    useEffect(() => {
+        loadConstant();
+    }, [selectedLanguage])
 
     const onChange = (e, type, isCheckbox) => {
         let data;
@@ -135,12 +154,12 @@ const ForgotPassword=()=>{
             <Grid item xs={11} md={4} container direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
                 <Grid item>
                     <CustomLabelHeaderExtraLarge
-                        text={"Forgot Password"}
+                        text={forgotPasswordHeading}
                         color={"#FFCC00"} fontWeight={"bold"}/>
                 </Grid>
                 <Grid item style={{marginTop:"20px"}}>
                     <CustomLabelLabelMedium
-                        text={"Enter your email to receive verification link."}
+                        text={verificationLink}
                         color={"black"} fontWeight={"bold"} color={"black"} fontWeight={"bold"}
                         opacity={1} lineHeight={1.7} textAlign={"center"}/>
                 </Grid>
@@ -148,12 +167,12 @@ const ForgotPassword=()=>{
                 <Grid item container style={{marginTop:"20px"}}>
                     <Grid item>
                         <CustomLabelLabelMedium
-                            text={"Email"}
+                            text={email}
                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                             lineHeight={1.7}/>
                     </Grid>
                     <Grid item container>
-                        <CustomAuthTextField placeholder={"type email here"}
+                        <CustomAuthTextField placeholder={typeEmail}
                                              value={user.email.value}
                                              onChange={(e) => onChange(e, "email")}
                                              showError={user.email.showError}
@@ -165,7 +184,7 @@ const ForgotPassword=()=>{
 
                 <Grid container style={{marginTop:"20px"}} justifyContent={"space-between"}>
                     <Grid item onClick={(e)=>onForgotPassword()}>
-                        <CustomButtonLarge text={"Send Email"} background={"red"} border={"2px solid red"}/>
+                        <CustomButtonLarge text={sendEmail} background={"red"} border={"2px solid red"}/>
                     </Grid>
                 </Grid>
 

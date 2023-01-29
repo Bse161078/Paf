@@ -54,7 +54,7 @@ const initialConfirmation = {
 }
 
 
-let homeTitle,workInGermanyTitle,liveInGermanyTitle,costAndFeesTitle,loginTitle,signUpTitle,myAccountTitle,logoutTitle;
+let homeTitle,workInGermanyTitle,liveInGermanyTitle,costAndFeesTitle,loginTitle,signUpTitle,myAccountTitle,logoutTitle, nursingProfessionals, itSpecials,engineerings,physicians,scientists,recognitionProcedure,whyYouNeedRecognition,academicQualifications,workContract,salaryTaxSocialCharges,languageLessons,integrationsCourses,economy,immigration,livingExpensesSalary,costFees,contactUs,frequentlyAskedQuestions,privacyPolicy,cancellationPolicy,termsAndConditions,myAccount
 
 const Navigation = () => {
 
@@ -80,7 +80,7 @@ const Navigation = () => {
     const loadConstant = async () => {
         setLoading(true);
         ({
-            homeTitle,workInGermanyTitle,liveInGermanyTitle,costAndFeesTitle,loginTitle,signUpTitle,myAccountTitle,logoutTitle
+            homeTitle,workInGermanyTitle,liveInGermanyTitle,costAndFeesTitle,loginTitle,signUpTitle,myAccountTitle,logoutTitle,nursingProfessionals,itSpecials,engineerings,physicians,scientists,recognitionProcedure,whyYouNeedRecognition,academicQualifications,workContract,salaryTaxSocialCharges,languageLessons,integrationsCourses,economy,immigration,livingExpensesSalary,costFees,contactUs,frequentlyAskedQuestions,privacyPolicy,cancellationPolicy,termsAndConditions,myAccount
         } =
             selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
         setCount(count+1);
@@ -222,50 +222,50 @@ const Navigation = () => {
     let pageHeader;
     if (location !== "/") {
         if (location === "/nursing") {
-            pageHeader = {title: "Nursing Professionals", icon: NursingHeaderIcon}
+            pageHeader = {title: nursingProfessionals, icon: NursingHeaderIcon}
         } else if (location === "/it-specialist") {
-            pageHeader = {title: "IT & SPECIALIST", icon: NursingHeaderIcon}
+            pageHeader = {title: itSpecials, icon: NursingHeaderIcon}
         } else if (location === "/engineering") {
-            pageHeader = {title: "Engineering", icon: NursingHeaderIcon}
+            pageHeader = {title: engineerings, icon: NursingHeaderIcon}
         } else if (location === "/physicians") {
-            pageHeader = {title: "Physicians", icon: NursingHeaderIcon}
+            pageHeader = {title: physicians, icon: NursingHeaderIcon}
         } else if (location === "/scientists") {
-            pageHeader = {title: "Scientists", icon: NursingHeaderIcon}
+            pageHeader = {title: scientists, icon: NursingHeaderIcon}
         } else if (location === "/recognition") {
-            pageHeader = {title: "Recognition Procedure", icon: NursingHeaderIcon}
+            pageHeader = {title: recognitionProcedure, icon: NursingHeaderIcon}
         } else if (location === "/why-recognition") {
-            pageHeader = {title: "Why you need recognition?", icon: NursingHeaderIcon}
+            pageHeader = {title: whyYouNeedRecognition, icon: NursingHeaderIcon}
         } else if (location === "/academic-qualifications") {
-            pageHeader = {title: "Academic qualifications?", icon: NursingHeaderIcon}
+            pageHeader = {title: academicQualifications, icon: NursingHeaderIcon}
         } else if (location === "/work-contract") {
-            pageHeader = {title: "Work-Contract?", icon: NursingHeaderIcon}
+            pageHeader = {title: workContract, icon: NursingHeaderIcon}
         } else if (location === "/salary-tax") {
-            pageHeader = {title: "Salary, tax & social charges", icon: NursingHeaderIcon}
+            pageHeader = {title: salaryTaxSocialCharges, icon: NursingHeaderIcon}
         } else if (location === "/learn-german") {
-            pageHeader = {title: "language lessons", icon: NursingHeaderIcon}
+            pageHeader = {title: languageLessons, icon: NursingHeaderIcon}
         } else if (location === "/integration-courses") {
-            pageHeader = {title: "Integrations Courses", icon: NursingHeaderIcon}
+            pageHeader = {title: integrationsCourses, icon: NursingHeaderIcon}
         } else if (location === "/economy") {
-            pageHeader = {title: "Economy", icon: NursingHeaderIcon}
+            pageHeader = {title: economy, icon: NursingHeaderIcon}
         } else if (location === "/immigration") {
-            pageHeader = {title: "Immigration", icon: NursingHeaderIcon}
+            pageHeader = {title: immigration, icon: NursingHeaderIcon}
         } else if (location === "/living-expenses") {
-            pageHeader = {title: "Living-Expenses-Salary", icon: NursingHeaderIcon}
+            pageHeader = {title: livingExpensesSalary, icon: NursingHeaderIcon}
         } else if (location === "/cost") {
-            pageHeader = {title: "Cost & Fees", icon: NursingHeaderIcon}
+            pageHeader = {title: costFees, icon: NursingHeaderIcon}
         } else if (location === "/contact-us") {
-            pageHeader = {title: "Contact Us", icon: NursingHeaderIcon}
+            pageHeader = {title: contactUs, icon: NursingHeaderIcon}
         } else if (location === "/faq") {
-            pageHeader = {title: "Frequently Asked Questions", icon: NursingHeaderIcon}
+            pageHeader = {title: frequentlyAskedQuestions, icon: NursingHeaderIcon}
         } else if (location === "/privacy-policy") {
-            pageHeader = {title: "Privacy Policy", icon: NursingHeaderIcon}
+            pageHeader = {title: privacyPolicy, icon: NursingHeaderIcon}
         } else if (location === "/cancellation-policy") {
-            pageHeader = {title: "Cancellation Policy", icon: NursingHeaderIcon}
+            pageHeader = {title: cancellationPolicy, icon: NursingHeaderIcon}
         } else if (location === "/terms-condition") {
-            pageHeader = {title: "Terms and Conditions", icon: NursingHeaderIcon}
+            pageHeader = {title: termsAndConditions, icon: NursingHeaderIcon}
         } else if (location === "/dashboard" || location === '/dashboard/profile' || location === '/dashboard/translate'
             || location === '/dashboard/recognition') {
-            pageHeader = {title: "My Account", icon: NursingHeaderIcon}
+            pageHeader = {title: myAccount, icon: NursingHeaderIcon}
         }
     }
 

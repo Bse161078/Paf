@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -17,21 +17,76 @@ import NursingDetail4Image4 from "src/assets/images/nursing-des4-img4.svg";
 import NursingDetail4Image5 from "src/assets/images/nursing-des4-img5.svg";
 import {CustomButtonLarge} from "../common/button";
 import {CustomTextField} from "../common/text";
+import { useSelector } from "react-redux";
+
+
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,engineerOpertunity,industry,technologySector,futureOfEngineering,dedicatedTeam,toWorkInGermany,provideImmigrationServicesExperienceAgents,trustedByPeople,moreThan20YearsOfExperience,youCanApplyForVisaAndImmigration,enterGermany,variationOfITSpecialist,governmentCertified,greatSupport,visaAndResidency,nurseTitle1,nurseTitle2,nurseTitle3,visaAndResidencySubtitle;
 
 
 const Engineering = () => {
+
+            const { selectedLanguage } = useSelector((state) => state.languageReducer);
+            const [loading, setLoading] = useState(false);
+            const [count, setCount] = useState(0);
+        
+            const loadConstant = async () => {
+                setLoading(true);
+                ({
+                    
+                    nursingFullService,
+                    germany,
+                    checkDocument,
+                    translationDocuments,
+                    applicationAuthorities,
+                    supportSearch,
+                    helpOpening,
+                    freeAssessment,
+                    name,
+                    phone,
+                    selectImmigration,
+                    message,
+                    signUp,
+                    submit,engineerOpertunity,industry,technologySector,futureOfEngineering,dedicatedTeam,toWorkInGermany,provideImmigrationServicesExperienceAgents,trustedByPeople,moreThan20YearsOfExperience,youCanApplyForVisaAndImmigration,enterGermany,visaAndResidency,nurseTitle1,nurseTitle2,nurseTitle3,visaAndResidencySubtitle
+        
+        
+                } =
+                    selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+                setLoading(false);
+                setCount(count + 1)
+            }
+        
+            useEffect(() => {
+                loadConstant();
+            }, [selectedLanguage])
+    
+    
+
+
     return (
         <Grid container justifyContent={"center"} sx={{marginTop: {xs:"calc(50vh - 250px)",sm:"calc(50vh - 250px)",lg:"calc(50vh - 300px)"}}}>
             <Grid item xs={9} container sx={{marginTop: {xs:"5px",md:"20px"}}} justifyContent={"space-between"}>
                 <Grid item container xs={12} md={7} direction={"column"}>
                     <Grid item>
                         <CustomLabelHeaderLarge
-                            text={"The future of the Engineering in Germany"}
+                            text={futureOfEngineering}
                             color={"red"} fontWeight={"bold"}/>
                     </Grid>
                     <Grid item style={{marginTop: "20px"}}>
                         <CustomLabelLabelMedium
-                            text={"The technology sector encompasses all areas of engineering, the manufacturing industry including the automotive industry. This continues to represent an important basis of the German economy. The energy sector is experiencing an enormous boom in order to achieve an energy turnaround. Production equipment made in Germany continues to lead the world. Coupled with the use of digital processes and electrical engineering, exciting fields of activity are emerging in which engineers, in particular, are desperately sought.\n" +
+                            text={technologySector+"\n" +
                             ""}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -45,13 +100,13 @@ const Engineering = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Dedicated Team"}
+                                        text={nurseTitle1}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Nursing Professional available.\n"}
+                                        text={dedicatedTeam+"\n"}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -64,13 +119,13 @@ const Engineering = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Great Support"}
+                                        text={nurseTitle2}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Nursing Professional available."}
+                                        text={dedicatedTeam}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -83,13 +138,13 @@ const Engineering = () => {
                             <Grid item xs container direction={"column"} style={{marginLeft: "20px"}}>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"Government Certified"}
+                                        text={nurseTitle3}
                                         color={"red"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomLabelLabelMedium
-                                        text={"There are many variations of passages of Nursing Professional available."}
+                                        text={dedicatedTeam}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -100,12 +155,12 @@ const Engineering = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"You & Industry 4.0"}
+                                text={industry}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"As an engineer, you have countless opportunities. Your expertise is in demand in many sectors of the economy. In particular, there are a large number of vacancies in research & development (R&D). But innovative people are also needed in automation technology, the automotive industry, the energy sector, environmental protection and the construction sector to meet the requirements of Industry 4.0. As an engineer, you have the choice and can help shape the world from Germany.\n" +
+                                text={engineerOpertunity+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -116,12 +171,12 @@ const Engineering = () => {
                     <Grid container style={{marginTop: "20px"}} direction={"column"}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Visa & Residency"}
+                                text={visaAndResidency}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"To enter Germany, you need a visa, which can be applied for at the German embassy or consulate in your country.\n" +
+                                text={visaAndResidencySubtitle+"\n" +
                                 "\n"}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -137,7 +192,7 @@ const Engineering = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"You can apply for visa and immigration"}
+                                        text={youCanApplyForVisaAndImmigration}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -148,7 +203,7 @@ const Engineering = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"More than 20+ years of experience"}
+                                        text={moreThan20YearsOfExperience}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -159,7 +214,7 @@ const Engineering = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Trusted by people"}
+                                        text={trustedByPeople}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -170,7 +225,7 @@ const Engineering = () => {
                                 </Grid>
                                 <Grid item xs style={{marginLeft: "20px"}}>
                                     <CustomLabelLabelMedium
-                                        text={"Provide Immigration Services Experience Agents"}
+                                        text={provideImmigrationServicesExperienceAgents}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -183,7 +238,7 @@ const Engineering = () => {
 
                     <Grid container style={{marginTop: "40px"}}>
                         <CustomLabelLabelMedium
-                            text={"To be able to work in Germany after entering the country, you will need a residence permit if you are not a citizen of the EU, Liechtenstein, Iceland, Norway, or Switzerland.We will of course support you in obtaining your visa and residence permit.\n" +
+                            text={toWorkInGermany+"\n" +
                             "\n"}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -199,14 +254,14 @@ const Engineering = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -218,7 +273,7 @@ const Engineering = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -231,7 +286,7 @@ const Engineering = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -244,7 +299,7 @@ const Engineering = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -257,7 +312,7 @@ const Engineering = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -269,7 +324,7 @@ const Engineering = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft:"20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -277,7 +332,7 @@ const Engineering = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={signUp} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -289,7 +344,7 @@ const Engineering = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding:"20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -300,7 +355,7 @@ const Engineering = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -312,7 +367,7 @@ const Engineering = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -324,7 +379,7 @@ const Engineering = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -336,7 +391,7 @@ const Engineering = () => {
                                         <Grid container direction={"column"} alignItems={"flex-start"} style={{marginTop:"20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -350,7 +405,7 @@ const Engineering = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop:"20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"} border={"2px solid red"}/>
+                                            <CustomButtonLarge text={submit} background={"red"} border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

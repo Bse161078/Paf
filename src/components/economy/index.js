@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {CustomLabelHeaderLarge, CustomLabelLabelMedium, CustomLabelLabelSmallMedium} from "../common/label";
 import NursingDetail from "src/assets/images/nursing-detail.webp";
 import NursingDetail1Image1 from "src/assets/images/nursing-des-img1.svg";
@@ -22,9 +22,61 @@ import ManyYearsExpIcon from "src/assets/images/many-years-exp.svg";
 import CompleteAccurateIcon from "src/assets/images/complete-accurate.svg";
 import ImmigrantSpecialistIcon from "src/assets/images/immigrant-specialist.svg";
 import VisaPerson from "src/assets/images/visa-persone.webp";
+import { useSelector } from "react-redux";
 
+let nursingFullService;
+let germany;
+let checkDocument;
+let translationDocuments;
+let applicationAuthorities;
+let supportSearch;
+let helpOpening;
+let freeAssessment;
+let name;
+let phone;
+let selectImmigration;
+let message;
+let signUp;
+let submit,economy,economyDetails,germanSuccessModel,germanSuccessModelDetails;
 
 const Economy = () => {
+
+        const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+
+        
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                nursingFullService,
+                germany,
+                checkDocument,
+                translationDocuments,
+                applicationAuthorities,
+                supportSearch,
+                helpOpening,
+                freeAssessment,
+                name,
+                phone,
+                selectImmigration,
+                message,
+                signUp,
+                submit,economy,economyDetails,germanSuccessModel,germanSuccessModelDetails,
+    
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
+    
+    
     return (
         <Grid container justifyContent={"center"}
               sx={{marginTop: {xs: "calc(50vh - 250px)", sm: "calc(50vh - 250px)", lg: "calc(50vh - 300px)"}}}>
@@ -34,12 +86,12 @@ const Economy = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Economy"}
+                                text={economy}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"Trotz Pandemie betrug das Bruttoinlandsprodukt (BIP) in Deutschland im Jahr 2021 rund 3,5 Billionen Euro, was einem Wachstum um 2,9% im Vergleich zum Vorjahr entspricht. (Quelle Statista ) Mit einem soliden Mittelstand und einer etablierten Industrielandschaft gehört Deutschland seit Jahren zu den TOP5-Industrienationen weltweit und Platz eins in Europa. Um diese Wirtschaftskraft auch in Zukunft zu halten, werden Fachkräfte in sehr vielen Bereichen in Deutschland gesucht: im Gesundheitswesen, im Handwerk, im Tourismus, in der Gastronomie oder in der IT-Branche, um nur einige Bereiche zu nennen. Deutschland gilt auch weiterhin als Land mit großen Innovationen. Im Jahr 2021 wurden 58.568 Patentanmeldungen (Quelle statista.com) registriert. Auch das zeugt von einer stabilen Wirtschaft und einer weiterhin führenden Innovationskraft. Doch der Mangel an qualifizierten Nachwuchskräften ist die entscheidende Herausforderung. Ohne Zuwanderung von qualifizierten Fachkräften wir Deutschland auf langer Sicht seine führende Position in der Weltwirtschaft verlieren. Deutschland punktet mit seiner enorm guten Infrastruktur, seinem hoch entwickelten Unternehmens- und Dienstleistungssektor, seinem sozialen Bildungssystem und viele technologischen Innovationen.\n" +
+                                text={economyDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -49,20 +101,12 @@ const Economy = () => {
                     <Grid container style={{marginTop: "20px"}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Werde jetzt Teil und starte deine Registrierung."}
-                                color={"black"} fontWeight={"bold"}/>
-                        </Grid>
-                    </Grid>
-
-                    <Grid container style={{marginTop: "20px"}}>
-                        <Grid item>
-                            <CustomLabelHeaderLarge
-                                text={"The German success model"}
+                                text={germanSuccessModel}
                                 color={"red"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop: "10px"}}>
                             <CustomLabelLabelMedium
-                                text={"The German Mittelstand is synonymous with prosperity worldwide. In fact, 99% of all German companies are small and medium-sized enterprises. From a purely statistical point of view, only companies with fewer than 500 employees count as SMEs; in technical jargon, all owner-managed companies count as SMEs. Especially the 1,500 so-called hidden champions, companies that are among the top three in the world market of their industry, are part of the German Mittelstand. These companies are often little known and located in the provinces, but offer their employees a familiar and secure working environment. Furthermore, the German Mittelstand is characterized by great proximity to customers, and close personal relationships with suppliers, partners, and employees. And that is precisely why German SMEs are also the innovation engine of the economy. Here, there is traditional room for trial and error as a hands-on mentality and preferences for research and inventions. What are you waiting for? Take the first step to Germany now and register here\n" +
+                                text={germanSuccessModelDetails+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -84,14 +128,14 @@ const Economy = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Full service for your start in"}
+                                            text={nursingFullService}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={0.7} lineHeight={1.7}/>
 
                                     </Grid>
                                     <Grid item>
                                         <CustomLabelLabelMedium
-                                            text={"Germany"}
+                                            text={germany}
                                             color={"#FFCC00"} fontWeight={"bold"} textAlign={"center"}
                                             opacity={1} lineHeight={1.7}/>
                                     </Grid>
@@ -104,7 +148,7 @@ const Economy = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Document check"}
+                                                    text={checkDocument}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -118,7 +162,7 @@ const Economy = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Translations of your documents"}
+                                                    text={translationDocuments}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -132,7 +176,7 @@ const Economy = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Application to the authorities"}
+                                                    text={applicationAuthorities}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -146,7 +190,7 @@ const Economy = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Support with job search"}
+                                                    text={supportSearch}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -159,7 +203,7 @@ const Economy = () => {
                                             </Grid>
                                             <Grid item xs style={{marginLeft: "20px"}}>
                                                 <CustomLabelLabelMedium
-                                                    text={"Help with bank account opening"}
+                                                    text={helpOpening}
                                                     color={"black"} fontWeight={"normal"}
                                                     opacity={1} lineHeight={1.7}/>
                                             </Grid>
@@ -167,7 +211,7 @@ const Economy = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Sign Up"} background={"red"}
+                                            <CustomButtonLarge text={signUp} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>
@@ -185,7 +229,7 @@ const Economy = () => {
                                 <Grid contanier alignItems={"center"} direction={"column"} style={{padding: "20px"}}>
                                     <Grid item>
                                         <CustomLabelHeaderLarge
-                                            text={"Free Immigration Assessment"}
+                                            text={freeAssessment}
                                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                                             lineHeight={1.7}/>
 
@@ -197,7 +241,7 @@ const Economy = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Name"}
+                                                    text={name}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -210,7 +254,7 @@ const Economy = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Phone"}
+                                                    text={phone}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -223,7 +267,7 @@ const Economy = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Select Immigration"}
+                                                    text={selectImmigration}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -236,7 +280,7 @@ const Economy = () => {
                                               style={{marginTop: "20px"}}>
                                             <Grid item>
                                                 <CustomLabelLabelMedium
-                                                    text={"Message"}
+                                                    text={message}
                                                     color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                     lineHeight={1.7}/>
                                             </Grid>
@@ -247,7 +291,7 @@ const Economy = () => {
 
 
                                         <Grid container justifyContent={"center"} style={{marginTop: "20px"}}>
-                                            <CustomButtonLarge text={"Submit"} background={"red"}
+                                            <CustomButtonLarge text={submit} background={"red"}
                                                                border={"2px solid red"}/>
                                         </Grid>
                                     </Grid>

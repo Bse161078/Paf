@@ -31,21 +31,27 @@ import {DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import moment from "moment";
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import {useSelector} from "react-redux";
+
+let checkEligibility,personalData,username,phoneNo,gender,male,female,dob,pob,address,disability,yes,no,disease,nationality,nextStep,motherTongue,validPassword,typeUsername,typephone,typeDOB,typeAddress,validUsername,usernameEmpty,phoneNoEmpty,motherTongueEmpty,addressEmpty,dobEmpty,nationalityEmpty,pobEmpty,countryCodeEmpty;
 
 export const initialRegister = {
-    username: {value: null, error: "Username cant be empty", showError: false},
-    phone: {value: null, error: "Phone cant be empty", showError: false},
-    countryCode: {value: null, error: "Country Code cant be empty", showError: false},
-    dob: {value: null, error: "Date of birth cant be empty", showError: false},
-    pob: {value: '', error: "Place of birth cant be empty", showError: false},
-    nationality: {value: '', error: "Nationality cant be empty", showError: false},
-    language: {value: '', error: "Language cant be empty", showError: false},
+    username: {value: null, error: usernameEmpty, showError: false},
+    phone: {value: null, error: phoneNoEmpty, showError: false},
+    countryCode: {value: null, error: countryCodeEmpty, showError: false},
+    dob: {value: null, error: dobEmpty, showError: false},
+    pob: {value: '', error: pobEmpty, showError: false},
+    nationality: {value: '', error: nationalityEmpty, showError: false},
+    language: {value: '', error: motherTongueEmpty, showError: false},
     gender: {value: 'female', error: "Gender cant be empty", showError: false},
     disability: {value: 'no', error: "Gender cant be empty", showError: false},
     disease: {value: 'no', error: "Gender cant be empty", showError: false},
-    address: {value: '', error: "Address cant be empty", showError: false},
+    address: {value: '', error: addressEmpty, showError: false},
 
 };
+
+
+
 
 
 const RegisterStep2 = (props) => {
@@ -57,6 +63,24 @@ const RegisterStep2 = (props) => {
     const {userId} = useOutletContext();
     const [loading, setLoading] = useState(false);
     const [openCalendar, setOpenCalendar] = useState(false);
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+       
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                checkEligibility,personalData,username,phoneNo,gender,male,female,dob,pob,address,disability,yes,no,disease,nationality,nextStep,motherTongue,validPassword,typeUsername,typephone,typeDOB,typeAddress,validUsername,usernameEmpty,phoneNoEmpty,motherTongueEmpty,addressEmpty,dobEmpty,nationalityEmpty,pobEmpty,countryCodeEmpty
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
 
     useEffect(() => {
 
@@ -98,11 +122,11 @@ const RegisterStep2 = (props) => {
 
         if (type === "username") {
             if (validateUsername(data.username.value)) {
-                data = {...data, username: {...data.username, showError: false, error: ""}}
+                data = {...data, username: {...data.username, showError: false, error: validUsername}}
             } else {
                 data = {
                     ...data,
-                    username: {...data.username, showError: true, error: "Username must have at least 5 characters"}
+                    username: {...data.username, showError: true, error: ""}
                 }
             }
         }
@@ -131,15 +155,17 @@ const RegisterStep2 = (props) => {
         userData.progress = 2;
         await setDoc(doc(getFireStoreDb(), "users", userId), userData, {merge: true});
         setLoading(false);
+        console.log("data : ",userData)
         navigate('/register/step3');
     }
 
 
     const onRegisterUser = () => {
-        const validate = validateUserInput({...user}, "", "Password must have at least 8 characters");
+        const validate = validateUserInput({...user}, "", validPassword);
         if (validate.isValid) {
 
             registerUser();
+
 
         } else {
             setUser(validate.data);
@@ -169,7 +195,7 @@ const RegisterStep2 = (props) => {
             <Grid item xs={11} md={8} container direction={"column"} justifyContent={"center"} alignItems={"center"}>
                 <Grid item>
                     <CustomLabelHeaderExtraLarge
-                        text={"Check for eligibility"}
+                        text={checkEligibility}
                         color={"black"} fontWeight={"bold"} textAlign={"center"}/>
                 </Grid>
                 <Grid item style={{marginTop: "5px"}}>
@@ -216,7 +242,7 @@ const RegisterStep2 = (props) => {
                         <Grid container direction={"column"} alignItems={"center"}>
                             <Grid item>
                                 <CustomLabelHeaderLarge
-                                    text={"Personal Data"}
+                                    text={personalData}
                                     color={"black"} fontWeight={"bold"}/>
                             </Grid>
                             <Grid item style={{marginTop: "5px"}}>
@@ -231,12 +257,12 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Username"}
+                                text={username}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
                         <Grid item container>
-                            <CustomAuthTextField placeholder={"type username here"}
+                            <CustomAuthTextField placeholder={typeUsername}
                                                  value={user.username.value}
                                                  onChange={(e) => onChange(e, "username")}
                                                  showError={user.username.showError}
@@ -246,7 +272,7 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={5.5} container sx={{marginTop: {xs: "30px", md: "0px"}}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Phone"}
+                                text={phoneNo}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -260,7 +286,7 @@ const RegisterStep2 = (props) => {
                                 />
                             </Grid>
                             <Grid item xs={9} container>
-                                <CustomAuthTextField placeholder={"type phone here"}
+                                <CustomAuthTextField placeholder={typephone}
                                                      value={user.phone.value}
                                                      onChange={(e) => onChange(e, "phone")}
                                                      showError={user.phone.showError}
@@ -274,7 +300,7 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Gender"}
+                                text={gender}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -288,13 +314,13 @@ const RegisterStep2 = (props) => {
                                     <Radio checked={user.gender.value === "male"}
                                            onChange={(e) => e.target.value && onChange("male", "gender", true)}
                                     />}
-                                                  label="Male"/>
+                                                  label={male}/>
                                 <FormControlLabel value="female"
                                                   control={
                                                       <Radio checked={user.gender.value === "female"}
                                                              onChange={(e) => e.target.value && onChange("female", "gender", true)}
                                                       />}
-                                                  label="Female"
+                                                  label={female}
                                                   style={{marginLeft: "10px"}}/>
                             </RadioGroup>
                         </Grid>
@@ -305,7 +331,7 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Date Of Birth"}
+                                text={dob}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -329,7 +355,7 @@ const RegisterStep2 = (props) => {
                                         (
 
                                             <CustomAuthTextField label={""} value={user.dob && user.dob.value}
-                                                                 placeholder={"type date of birth here"}
+                                                                 placeholder={typeDOB}
                                                                  params={params}
                                                                  showError={user.dob.showError}
                                                                  error={user.dob.error}
@@ -355,7 +381,7 @@ const RegisterStep2 = (props) => {
 
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Place Of Birth"}
+                                text={pob}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -377,12 +403,12 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={12} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Address"}
+                                text={address}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
                         <Grid item container>
-                            <CustomAuthTextField placeholder={"type address here"}
+                            <CustomAuthTextField placeholder={typeAddress}
                                                  value={user.address.value}
                                                  onChange={(e) => onChange(e, "address")}
                                                  showError={user.address.showError}
@@ -396,7 +422,7 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Do you have any disability?"}
+                                text={disability}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -409,11 +435,11 @@ const RegisterStep2 = (props) => {
                                 <FormControlLabel value="yes" control=
                                     {<Radio checked={user.disability.value === "yes"}
                                             onChange={(e) => e.target.value && onChange("yes", "disability", true)}/>}
-                                                  label="Yes"/>
+                                                  label={yes}/>
                                 <FormControlLabel value="no" control=
                                     {<Radio checked={user.disability.value === "no"}
                                             onChange={(e) => e.target.value && onChange("no", "disability", true)}/>}
-                                                  label="No"
+                                                  label={no}
                                                   style={{marginLeft: "10px"}}/>
                             </RadioGroup>
                         </Grid>
@@ -422,7 +448,7 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={5.5} container sx={{marginTop: {xs: "30px", md: "0px"}}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Do You Have Any Chronic Disease?"}
+                                text={disease}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -432,16 +458,16 @@ const RegisterStep2 = (props) => {
                                 aria-labelledby="demo-row-radio-buttons-group-label"
                                 name="row-radio-buttons-group"
                             >
-                                <FormControlLabel value="yes" control=
+                                <FormControlLabel value="yes"control=
                                     {<Radio checked={user.disease.value === "yes"}
                                             onChange={(e) => e.target.value && onChange("yes", "disease", true)}
                                     />}
-                                                  label="Yes"/>
+                                                  label={yes}/>
                                 <FormControlLabel value="no" control=
                                     {<Radio checked={user.disease.value === "no"}
                                             onChange={(e) => e.target.value && onChange("no", "disease", true)}
                                     />}
-                                                  label="No" style={{marginLeft: "10px"}}/>
+                                                  label={no} style={{marginLeft: "10px"}}/>
                             </RadioGroup>
                         </Grid>
                     </Grid>
@@ -452,7 +478,7 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={5.5} container>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"Select your Mother Tongue language?"}
+                                text={motherTongue}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -468,7 +494,7 @@ const RegisterStep2 = (props) => {
                     <Grid item xs={12} md={5.5} container sx={{marginTop: {xs: "30px", md: "0px"}}}>
                         <Grid item>
                             <CustomLabelHeaderLarge
-                                text={"What Is Your Nationality?"}
+                                text={nationality}
                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                 lineHeight={1.7}/>
                         </Grid>
@@ -488,7 +514,7 @@ const RegisterStep2 = (props) => {
                 <Grid container style={{marginTop: "20px", paddingBottom: "40px"}}>
                     <Grid item onClick={(e) => (onRegisterUser())}>
                         <CustomButtonLarge
-                            text={"Next Step"} background={"red"} border={"2px solid red"}/>
+                            text={nextStep} background={"red"} border={"2px solid red"}/>
                     </Grid>
                 </Grid>
 

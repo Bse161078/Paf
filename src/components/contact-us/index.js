@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid/Grid";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {
     CustomLabelHeader,
     CustomLabelHeaderLarge, CustomLabelHeaderLarge1,
@@ -16,27 +16,55 @@ import YoutubeIcon from 'src/assets/images/youtube.svg';
 import InstagramIcon from 'src/assets/images/instagram.svg';
 import LinkedinIcon from 'src/assets/images/linkedin.svg';
 import {CustomTextField} from "../common/text";
+import { useSelector } from "react-redux";
+
+let quickContact,questions,contactForm,location,subject,followUsOnFB,followUsOnIG,followUsOnYoutube,followUsOnTwitter,followUsOnLinkedin,name,email,phone,sendYourMessage,message,submit;
 
 const ContactUs = () => {
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+        const [loading, setLoading] = useState(false);
+        const [count, setCount] = useState(0);
+    
+        const loadConstant = async () => {
+            setLoading(true);
+            ({
+                
+                quickContact,questions,contactForm,location,subject,followUsOnFB,followUsOnIG,followUsOnYoutube,followUsOnTwitter,followUsOnLinkedin,name,email,phone,sendYourMessage,message,submit
+
+
+                
+    
+            } =
+                selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+            setLoading(false);
+            setCount(count + 1)
+        }
+    
+        useEffect(() => {
+            loadConstant();
+        }, [selectedLanguage])
+
+
     return (
         <Grid container justifyContent={"center"}
               sx={{marginTop: {xs: "calc(50vh - 250px)", sm: "calc(50vh - 250px)", lg: "calc(50vh - 300px)"}}}>
             <Grid item xs={9} container sx={{marginTop: {xs: "5px", md: "20px"}}} justifyContent={"space-between"}>
                 <Grid item xs={12} md={5.5} container direction={"column"} justifyContent={"space-between"}>
                     <Grid item>
-                        <CustomLabelHeaderLarge text={"Quick Contact"} color={"red"} fontWeight={"bold"}/>
+                        <CustomLabelHeaderLarge text={quickContact} color={"red"} fontWeight={"bold"}/>
                     </Grid>
                     <Grid item style={{marginTop:"10px"}}>
                         <img src={YellowDividerIcon}/>
                     </Grid>
                     <Grid item style={{marginTop:"10px"}}>
                         <CustomLabelHeaderLarge1
-                            text={"Have Questions? Dont Hesitate to Contact Us"}
+                            text={questions}
                             color={"black"} fontWeight={"bold"}/>
                     </Grid>
                     <Grid item style={{marginTop:"20px"}}>
                         <CustomLabelLabelMedium
-                            text={"Please feel free to get in touch with us using the contact form below. We would love to hear for you welcomed and every pain avoided.\n" +
+                            text={contactForm+"\n" +
                             "\n"}
                             color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                             opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -53,7 +81,7 @@ const ContactUs = () => {
                             <Grid container direction={"column"}>
                                 <Grid item>
                                     <CustomLabelHeaderLarge
-                                        text={"Location"}
+                                        text={location}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -79,7 +107,7 @@ const ContactUs = () => {
                             <Grid container direction={"column"}>
                                 <Grid item>
                                     <CustomLabelHeaderLarge
-                                        text={"Email"}
+                                        text={email}
                                         color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                         opacity={1} lineHeight={1.7} textAlign={"justify"}/>
                                 </Grid>
@@ -96,24 +124,24 @@ const ContactUs = () => {
 
                     <Grid container justifyContent={"space-between"} style={{marginTop:"40px"}}>
                         <Grid item xs={12} md={5.5}>
-                            <CustomButtonLargeWithIcon icon={FacebookIcon} text={"Follow us on Facebook"} background={"#3B5998"}
+                            <CustomButtonLargeWithIcon icon={FacebookIcon} text={followUsOnFB} background={"#3B5998"}
                                                        border={"2px solid #3B5998"}/>
 
                         </Grid>
                         <Grid item xs={12} md={5.5} sx={{marginTop:{xs:"20px",md:"0px"}}}>
-                            <CustomButtonLargeWithIcon icon={YoutubeIcon} text={"Follow us on Youtube"} background={"#D32F2F"}
+                            <CustomButtonLargeWithIcon icon={YoutubeIcon} text={followUsOnYoutube} background={"#D32F2F"}
                                                        border={"2px solid #D32F2F"}/>
                         </Grid>
                     </Grid>
 
                     <Grid container justifyContent={"space-between"} style={{marginTop:"20px"}}>
                         <Grid item xs={12} md={5.5}>
-                            <CustomButtonLargeWithIcon icon={InstagramIcon} text={"Follow us on Instagram"} background={"#D81B60"}
+                            <CustomButtonLargeWithIcon icon={InstagramIcon} text={followUsOnIG} background={"#D81B60"}
                                                        border={"2px solid #D81B60"}/>
 
                         </Grid>
                         <Grid item xs={12} md={5.5} sx={{marginTop:{xs:"20px",md:"0px"}}}>
-                            <CustomButtonLargeWithIcon icon={LinkedinIcon} text={"Follow us on Linkedin"} background={"#0E76A8"}
+                            <CustomButtonLargeWithIcon icon={LinkedinIcon} text={followUsOnLinkedin} background={"#0E76A8"}
                                                        border={"2px solid #0E76A8"}/>
                         </Grid>
                     </Grid>
@@ -132,12 +160,12 @@ const ContactUs = () => {
                         </Grid>
                         <Grid item style={{marginTop:"10px"}}>
                             <CustomLabelHeaderLarge1
-                                text={"Send Your Message"}
+                                text={sendYourMessage}
                                 color={"black"} fontWeight={"bold"}/>
                         </Grid>
                         <Grid item style={{marginTop:"20px"}}>
                             <CustomLabelLabelMedium
-                                text={"Please feel free to get in touch with us using the contact form below. We would love to hear for you.\n" +
+                                text={contactForm+"\n" +
                                 ""}
                                 color={"black"} fontWeight={"bold"} fontWeight={"bold"}
                                 opacity={0.7} lineHeight={1.7} textAlign={"justify"}/>
@@ -150,7 +178,7 @@ const ContactUs = () => {
                                           style={{marginTop: "20px"}}>
                                         <Grid item>
                                             <CustomLabelLabelMedium
-                                                text={"Name"}
+                                                text={name}
                                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                 lineHeight={1.7}/>
                                         </Grid>
@@ -164,7 +192,7 @@ const ContactUs = () => {
                                           style={{marginTop: "20px"}}>
                                         <Grid item>
                                             <CustomLabelLabelMedium
-                                                text={"Email"}
+                                                text={email}
                                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                 lineHeight={1.7}/>
                                         </Grid>
@@ -181,7 +209,7 @@ const ContactUs = () => {
                                           style={{marginTop: "20px"}}>
                                         <Grid item>
                                             <CustomLabelLabelMedium
-                                                text={"Phone"}
+                                                text={phone}
                                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                 lineHeight={1.7}/>
                                         </Grid>
@@ -195,7 +223,7 @@ const ContactUs = () => {
                                           style={{marginTop: "20px"}}>
                                         <Grid item>
                                             <CustomLabelLabelMedium
-                                                text={"Subject"}
+                                                text={subject}
                                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                 lineHeight={1.7}/>
                                         </Grid>
@@ -213,7 +241,7 @@ const ContactUs = () => {
                                           style={{marginTop: "20px"}}>
                                         <Grid item>
                                             <CustomLabelLabelMedium
-                                                text={"Message"}
+                                                text={message}
                                                 color={"black"} fontWeight={"bold"} textAlign={"center"}
                                                 lineHeight={1.7}/>
                                         </Grid>
@@ -226,7 +254,7 @@ const ContactUs = () => {
 
                             <Grid container style={{marginTop:"20px"}}>
                                 <Grid item>
-                                    <CustomButtonLarge text={"Submit"} background={"#E53935"} border={"2px solid #E53935"}/>
+                                    <CustomButtonLarge text={submit} background={"#E53935"} border={"2px solid #E53935"}/>
                                 </Grid>
                             </Grid>
 

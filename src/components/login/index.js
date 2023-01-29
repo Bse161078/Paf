@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid/Grid";
 import AuthBackground from 'src/assets/images/auth-background.png';
 import {CustomLabelHeaderExtraLarge, CustomLabelHeaderLarge, CustomLabelLabelMedium} from "../common/label";
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import {CustomAuthTextField, CustomTextField} from "../common/text";
 import {CustomButtonLarge} from "../common/button";
 import Box from "@mui/material/Box/Box";
@@ -14,7 +14,7 @@ import { getAuth, signInWithEmailAndPassword,signOut,sendPasswordResetEmail   } 
 import {useLocation,useOutletContext,Outlet,useNavigate} from 'react-router-dom';
 import Loader from "../common/Loader";
 import ResponsiveConfirmationDialog from "../common/ResponsiveConfirmation";
-
+import { useSelector } from "react-redux";
 
 export const initialRegister = {
     email: {value: null, error: "Email cant be empty", showError: false},
@@ -33,12 +33,34 @@ const initialConfirmation = {
     buttonNo: null
 }
 
+let signIn,credentials,email,password,typeEmail,typePassword,loginTitle,forgotPassword,validEmail,validPassword,completeRegistration;
+
 const Login=()=>{
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(initialRegister);
     let navigate = useNavigate();
     const [confirmation, setConfirmation] = useState(initialConfirmation);
     const [count,setCount]=useState(0);
+
+
+    const { selectedLanguage } = useSelector((state) => state.languageReducer);
+
+    const loadConstant = async () => {
+        setLoading(true);
+        ({
+           
+            signIn,credentials,email,password,typeEmail,typePassword,loginTitle,forgotPassword
+
+        } =
+            selectedLanguage === "English" ? await import(`src/translation/eng`) : await import(`src/translation/tur`));
+        setLoading(false);
+        setCount(count + 1)
+    }
+
+    useEffect(() => {
+        loadConstant();
+    }, [selectedLanguage])
+
 
     const onChange = (e, type, isCheckbox) => {
         let data;
@@ -57,7 +79,8 @@ const Login=()=>{
             if (validateEmail(data.email.value)) {
                 data = {...data, email: {...data.email, showError: false, error: ""}}
             } else {
-                data = {...data, email: {...data.email, showError: true, error: "Please enter valid email address"}}
+                data = {...data, email: {...data.email, showError: true, error: 
+                validEmail}}
             }
         }
 
@@ -99,8 +122,8 @@ const Login=()=>{
         initializeFirebase();
         const auth = getAuth();
         const parsedUser=transformValidateObject(user);
-        const validate = validateUserInput({...user}, "","Password must have at least 8 characters");
-
+        const validate = validateUserInput({...user}, "",validPassword);
+        
         if(validate.isValid){
 
             signInWithEmailAndPassword(auth, parsedUser.email, parsedUser.password)
@@ -113,10 +136,12 @@ const Login=()=>{
                         if (userData && userData.progress===3) {
                             navigate('/dashboard');
                         } else {
+                            console.log("asd")
                             logoutUser()
+                            console.log("asd")
                             setConfirmation({
                                 show: true, title: "Error",
-                                text: "Please complete registration process"
+                                text: completeRegistration
                                 , data: {}, isUpdate: false,
                                 buttonYes:
                                     <Button autoFocus onClick={(e) => {
@@ -130,7 +155,7 @@ const Login=()=>{
                         setLoading(false);
                         setConfirmation({
                             show: true, title: "Error",
-                            text: "Please complete registration process"
+                            text: completeRegistration
                             , data: {}, isUpdate: false,
                             buttonYes:
                                 <Button autoFocus onClick={(e) => {
@@ -189,12 +214,12 @@ const Login=()=>{
             <Grid item xs={11} md={4} container direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
                 <Grid item>
                     <CustomLabelHeaderExtraLarge
-                        text={"Sign in"}
+                        text={signIn}
                         color={"#FFCC00"} fontWeight={"bold"}/>
                 </Grid>
                 <Grid item style={{marginTop:"20px"}}>
                     <CustomLabelLabelMedium
-                        text={"Enter your credentials to acces your account"}
+                        text={credentials}
                         color={"black"} fontWeight={"bold"} color={"black"} fontWeight={"bold"}
                         opacity={1} lineHeight={1.7} textAlign={"center"}/>
                 </Grid>
@@ -202,12 +227,12 @@ const Login=()=>{
                 <Grid item container style={{marginTop:"20px"}}>
                     <Grid item>
                         <CustomLabelLabelMedium
-                            text={"Email"}
+                            text={email}
                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                             lineHeight={1.7}/>
                     </Grid>
                     <Grid item container>
-                        <CustomAuthTextField placeholder={"type email here"}
+                        <CustomAuthTextField placeholder={typeEmail}
                                              value={user.email.value}
                                              onChange={(e) => onChange(e, "email")}
                                              showError={user.email.showError}
@@ -219,12 +244,12 @@ const Login=()=>{
                 <Grid item container style={{marginTop:"20px"}}>
                     <Grid item>
                         <CustomLabelLabelMedium
-                            text={"Password"}
+                            text={password}
                             color={"black"} fontWeight={"bold"} textAlign={"center"}
                             lineHeight={1.7}/>
                     </Grid>
                     <Grid item container>
-                        <CustomAuthTextField placeholder={"type password here"}
+                        <CustomAuthTextField placeholder={typePassword}
                                              type={"password"}
                                              value={user.password.value}
                                              onChange={(e) => onChange(e, "password")}
@@ -236,10 +261,10 @@ const Login=()=>{
 
                 <Grid container style={{marginTop:"20px"}} justifyContent={"space-between"}>
                     <Grid item onClick={(e)=>registerUser()}>
-                        <CustomButtonLarge text={"Log in"} background={"red"} border={"2px solid red"}/>
+                        <CustomButtonLarge text={loginTitle} background={"red"} border={"2px solid red"}/>
                     </Grid>
                     <Grid item onClick={(e)=>onForgotPassword()}>
-                        <CustomButtonLarge text={"Forgot Password?"} background={"transparent"} color={"red"} border={"2px solid red"}/>
+                        <CustomButtonLarge text={forgotPassword} background={"transparent"} color={"red"} border={"2px solid red"}/>
                     </Grid>
                 </Grid>
 
